@@ -12,8 +12,8 @@ package Utils;
 public class DateTime {
 
     public static java.sql.Timestamp getCurrentTimeStamp() {
-        java.util.Date today = new java.util.Date();
-        return new java.sql.Timestamp(today.getTime());
+        java.util.Date hoje = new java.util.Date();
+        return new java.sql.Timestamp(hoje.getTime());
 
     }
 }
