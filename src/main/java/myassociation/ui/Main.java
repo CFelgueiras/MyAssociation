@@ -96,12 +96,12 @@ public class Main extends javax.swing.JFrame {
         jplQuotas = new javax.swing.JPanel();
         lblBotaoQuotas = new javax.swing.JLabel();
         lblQuotasDescricao = new javax.swing.JLabel();
+        jplModalidades = new javax.swing.JPanel();
+        lblBotaoEstatisticas = new javax.swing.JLabel();
+        lblEstatisticasDescricao = new javax.swing.JLabel();
         jplListagens = new javax.swing.JPanel();
         lblBotaoListagens = new javax.swing.JLabel();
         lblListagensDescricao = new javax.swing.JLabel();
-        jplEstatisticas = new javax.swing.JPanel();
-        lblBotaoEstatisticas = new javax.swing.JLabel();
-        lblEstatisticasDescricao = new javax.swing.JLabel();
         jplCardBase = new javax.swing.JPanel();
         jplCardHome = new javax.swing.JPanel();
         lblSociosTitulo = new javax.swing.JLabel();
@@ -313,6 +313,7 @@ public class Main extends javax.swing.JFrame {
         jplSideBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jplUtilizadores.setBackground(new java.awt.Color(255, 255, 255));
+        jplUtilizadores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblBotaoUtilizadores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotaoUtilizadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Utilizadores_64px.png"))); // NOI18N
@@ -322,36 +323,18 @@ public class Main extends javax.swing.JFrame {
                 lblBotaoUtilizadoresMousePressed(evt);
             }
         });
+        jplUtilizadores.add(lblBotaoUtilizadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 0, -1, 56));
 
         lblUtilizadoresDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblUtilizadoresDescricao.setForeground(new java.awt.Color(45, 118, 232));
         lblUtilizadoresDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUtilizadoresDescricao.setText("UTILIZADORES");
-
-        javax.swing.GroupLayout jplUtilizadoresLayout = new javax.swing.GroupLayout(jplUtilizadores);
-        jplUtilizadores.setLayout(jplUtilizadoresLayout);
-        jplUtilizadoresLayout.setHorizontalGroup(
-            jplUtilizadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplUtilizadoresLayout.createSequentialGroup()
-                .addGroup(jplUtilizadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblUtilizadoresDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jplUtilizadoresLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lblBotaoUtilizadores)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jplUtilizadoresLayout.setVerticalGroup(
-            jplUtilizadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplUtilizadoresLayout.createSequentialGroup()
-                .addComponent(lblBotaoUtilizadores, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblUtilizadoresDescricao)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jplUtilizadores.add(lblUtilizadoresDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 67, 97, -1));
 
         jplSideBar.add(jplUtilizadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 100, 90));
 
         jplSocios.setBackground(new java.awt.Color(255, 255, 255));
+        jplSocios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblBotaoSocios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotaoSocios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Socios_64px.png"))); // NOI18N
@@ -361,35 +344,18 @@ public class Main extends javax.swing.JFrame {
                 lblBotaoSociosMousePressed(evt);
             }
         });
+        jplSocios.add(lblBotaoSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 11, -1, 47));
 
         lblSociosDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSociosDescricao.setForeground(new java.awt.Color(45, 118, 232));
         lblSociosDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSociosDescricao.setText("SÓCIOS");
-
-        javax.swing.GroupLayout jplSociosLayout = new javax.swing.GroupLayout(jplSocios);
-        jplSocios.setLayout(jplSociosLayout);
-        jplSociosLayout.setHorizontalGroup(
-            jplSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplSociosLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lblBotaoSocios)
-                .addGap(0, 15, Short.MAX_VALUE))
-            .addComponent(lblSociosDescricao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jplSociosLayout.setVerticalGroup(
-            jplSociosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplSociosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblBotaoSocios, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblSociosDescricao)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
+        jplSocios.add(lblSociosDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 69, 100, -1));
 
         jplSideBar.add(jplSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, -1));
 
         jplQuotas.setBackground(new java.awt.Color(255, 255, 255));
+        jplQuotas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblBotaoQuotas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBotaoQuotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Quotas_64px.png"))); // NOI18N
@@ -399,36 +365,39 @@ public class Main extends javax.swing.JFrame {
                 lblBotaoQuotasMousePressed(evt);
             }
         });
+        jplQuotas.add(lblBotaoQuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 11, 53, 45));
 
         lblQuotasDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblQuotasDescricao.setForeground(new java.awt.Color(45, 118, 232));
         lblQuotasDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQuotasDescricao.setText("QUOTAS");
+        jplQuotas.add(lblQuotasDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 67, 53, -1));
 
-        javax.swing.GroupLayout jplQuotasLayout = new javax.swing.GroupLayout(jplQuotas);
-        jplQuotas.setLayout(jplQuotasLayout);
-        jplQuotasLayout.setHorizontalGroup(
-            jplQuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplQuotasLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jplQuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblBotaoQuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuotasDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        jplQuotasLayout.setVerticalGroup(
-            jplQuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplQuotasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblBotaoQuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblQuotasDescricao)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
+        jplSideBar.add(jplQuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 100, -1));
 
-        jplSideBar.add(jplQuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        jplModalidades.setBackground(new java.awt.Color(255, 255, 255));
+        jplModalidades.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblBotaoEstatisticas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBotaoEstatisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Modalidades_64px.png"))); // NOI18N
+        lblBotaoEstatisticas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblBotaoEstatisticas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblBotaoEstatisticasMousePressed(evt);
+            }
+        });
+        jplModalidades.add(lblBotaoEstatisticas, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 0, -1, 56));
+
+        lblEstatisticasDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblEstatisticasDescricao.setForeground(new java.awt.Color(45, 118, 232));
+        lblEstatisticasDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEstatisticasDescricao.setText("MODALIDADES");
+        jplModalidades.add(lblEstatisticasDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 56, 98, -1));
+
+        jplSideBar.add(jplModalidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 100, 90));
 
         jplListagens.setBackground(new java.awt.Color(255, 255, 255));
+        jplListagens.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblBotaoListagens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Listagens_64px.png"))); // NOI18N
         lblBotaoListagens.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -437,73 +406,15 @@ public class Main extends javax.swing.JFrame {
                 lblBotaoListagensMousePressed(evt);
             }
         });
+        jplListagens.add(lblBotaoListagens, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 10, -1, 56));
 
         lblListagensDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblListagensDescricao.setForeground(new java.awt.Color(45, 118, 232));
         lblListagensDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblListagensDescricao.setText("LISTAGENS");
+        jplListagens.add(lblListagensDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 100, -1));
 
-        javax.swing.GroupLayout jplListagensLayout = new javax.swing.GroupLayout(jplListagens);
-        jplListagens.setLayout(jplListagensLayout);
-        jplListagensLayout.setHorizontalGroup(
-            jplListagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblListagensDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplListagensLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(lblBotaoListagens)
-                .addGap(18, 18, 18))
-        );
-        jplListagensLayout.setVerticalGroup(
-            jplListagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplListagensLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblBotaoListagens, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblListagensDescricao)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        jplSideBar.add(jplListagens, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 100, -1));
-
-        jplEstatisticas.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblBotaoEstatisticas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBotaoEstatisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Estatisticas_64px.png"))); // NOI18N
-        lblBotaoEstatisticas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblBotaoEstatisticas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblBotaoEstatisticasMousePressed(evt);
-            }
-        });
-
-        lblEstatisticasDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblEstatisticasDescricao.setForeground(new java.awt.Color(45, 118, 232));
-        lblEstatisticasDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEstatisticasDescricao.setText("ESTATISTICAS");
-
-        javax.swing.GroupLayout jplEstatisticasLayout = new javax.swing.GroupLayout(jplEstatisticas);
-        jplEstatisticas.setLayout(jplEstatisticasLayout);
-        jplEstatisticasLayout.setHorizontalGroup(
-            jplEstatisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplEstatisticasLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lblBotaoEstatisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplEstatisticasLayout.createSequentialGroup()
-                .addGap(0, 2, Short.MAX_VALUE)
-                .addComponent(lblEstatisticasDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jplEstatisticasLayout.setVerticalGroup(
-            jplEstatisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplEstatisticasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblBotaoEstatisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEstatisticasDescricao)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        jplSideBar.add(jplEstatisticas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 100, -1));
+        jplSideBar.add(jplListagens, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 100, 90));
 
         jplCardBase.setBackground(new java.awt.Color(255, 255, 255));
         jplCardBase.setLayout(new java.awt.CardLayout());
@@ -965,8 +876,8 @@ public class Main extends javax.swing.JFrame {
         setColor(jplSocios);
         resetColor(jplQuotas);
         resetColor(jplUtilizadores);
+        resetColor(jplModalidades);
         resetColor(jplListagens);
-        resetColor(jplEstatisticas);
     }//GEN-LAST:event_lblBotaoSociosMousePressed
 
     private void lblBotaoQuotasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoQuotasMousePressed
@@ -975,8 +886,8 @@ public class Main extends javax.swing.JFrame {
         setColor(jplQuotas);
         resetColor(jplSocios);
         resetColor(jplUtilizadores);
+        resetColor(jplModalidades);
         resetColor(jplListagens);
-        resetColor(jplEstatisticas);
     }//GEN-LAST:event_lblBotaoQuotasMousePressed
 
     private void lblBotaoUtilizadoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoUtilizadoresMousePressed
@@ -985,30 +896,30 @@ public class Main extends javax.swing.JFrame {
         setColor(jplUtilizadores);
         resetColor(jplQuotas);
         resetColor(jplSocios);
+        resetColor(jplModalidades);
         resetColor(jplListagens);
-        resetColor(jplEstatisticas);
     }//GEN-LAST:event_lblBotaoUtilizadoresMousePressed
 
     private void lblBotaoListagensMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoListagensMousePressed
         CardLayout card = (CardLayout) jplCardBase.getLayout();
         card.show(jplCardBase, "jplCardListagens");
-        setColor(jplListagens);
-        resetColor(jplQuotas);
-        resetColor(jplSocios);
-        resetColor(jplCardQuotas);
-        resetColor(jplUtilizadores);
-        resetColor(jplEstatisticas);
-    }//GEN-LAST:event_lblBotaoListagensMousePressed
-
-    private void lblBotaoEstatisticasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoEstatisticasMousePressed
-        CardLayout card = (CardLayout) jplCardBase.getLayout();
-        card.show(jplCardBase, "jplCardEstatisticas");
-        setColor(jplEstatisticas);
+        setColor(jplModalidades);
         resetColor(jplQuotas);
         resetColor(jplSocios);
         resetColor(jplCardQuotas);
         resetColor(jplUtilizadores);
         resetColor(jplListagens);
+    }//GEN-LAST:event_lblBotaoListagensMousePressed
+
+    private void lblBotaoEstatisticasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoEstatisticasMousePressed
+        CardLayout card = (CardLayout) jplCardBase.getLayout();
+        card.show(jplCardBase, "jplCardEstatisticas");
+        setColor(jplListagens);
+        resetColor(jplQuotas);
+        resetColor(jplSocios);
+        resetColor(jplCardQuotas);
+        resetColor(jplUtilizadores);
+        resetColor(jplModalidades);
 
     }//GEN-LAST:event_lblBotaoEstatisticasMousePressed
 
@@ -1301,10 +1212,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jplCardSocios;
     private javax.swing.JPanel jplCardUtilizadores;
     private javax.swing.JPanel jplClose;
-    private javax.swing.JPanel jplEstatisticas;
     private javax.swing.JPanel jplListaUtilizadores;
     private javax.swing.JPanel jplListagens;
     private javax.swing.JPanel jplMinimize;
+    private javax.swing.JPanel jplModalidades;
     private javax.swing.JPanel jplQuotas;
     private javax.swing.JPanel jplQuotasBarraFerramentas;
     private javax.swing.JPanel jplSideBar;
