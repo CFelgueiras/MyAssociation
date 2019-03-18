@@ -73,12 +73,12 @@ public class UserImpl implements IUserDAO {
     }
 
     @Override
-    public boolean criarUtilizador(String utilizador, String senha, String grupo, String associacao) {
+    public boolean criarUtilizador(String utilizador, String senha, String grupo) {
         boolean utilcriado = false;
         Calendar calendar = Calendar.getInstance();
         java.sql.Date date = new java.sql.Date(calendar.getTimeInMillis());
 
-        int idassociacao = associacaoimpl.obterAssociacaoIDbyNome(associacao);
+        int idassociacao = 1;
         int idgrupoutilizador = obterIdGrupoUtilizadorbyNome(grupo);
 
         try {

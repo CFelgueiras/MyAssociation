@@ -12,12 +12,12 @@ public class MemberController {
 
     MemberImpl socioDAO = new MemberImpl();
 
-    public boolean criarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, boolean apagado, String categoria, String associacao, String username) {
-        return socioDAO.criarSocio(numero, nome, morada, nif, email, telefone, telemovel, fotografia, ativo, apagado, categoria, associacao, username);
+    public boolean criarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, boolean apagado, String categoria, String username) {
+        return socioDAO.criarSocio(numero, nome, morada, nif, email, telefone, telemovel, fotografia, ativo, apagado, categoria, username);
     }
 
-    public boolean editarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, String categoria, String associacao, String username) {
-        return socioDAO.editarSocio(numero, nome, morada, nif, email, telefone, telemovel, fotografia, ativo, categoria, associacao, username);
+    public boolean editarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, String categoria, String username) {
+        return socioDAO.editarSocio(numero, nome, morada, nif, email, telefone, telemovel, fotografia, ativo, categoria, username);
     }
 
     public ArrayList<Member> pesquisarSocio(String dado, String pesquisa, boolean ativo) {

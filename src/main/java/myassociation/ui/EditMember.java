@@ -61,7 +61,6 @@ public class EditMember extends javax.swing.JFrame {
         foto = createImageFromBytes(member.getFotografia());
         System.out.println(foto);
         jcbSociosCategoria.setModel(new DefaultComboBoxModel<>(socioController.listaCategoriasSocios()));
-        jcbSociosAssociacao.setModel(new DefaultComboBoxModel<>(assocController.listaNomesAssociacoes()));
         this.setLocationRelativeTo(null);
         this.setIconImage(assocController.applicationIcon());
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -102,8 +101,6 @@ public class EditMember extends javax.swing.JFrame {
         lblEditarSocioTitulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jcbSociosCategoria = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jcbSociosAssociacao = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -126,12 +123,12 @@ public class EditMember extends javax.swing.JFrame {
         jplEditarSocio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         checkSociosEstado.setBackground(new java.awt.Color(255, 255, 255));
-        jplEditarSocio.add(checkSociosEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, -1));
+        jplEditarSocio.add(checkSociosEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, -1, -1));
 
         lblSociosEstado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSociosEstado.setForeground(new java.awt.Color(0, 98, 206));
         lblSociosEstado.setText("Ativo:");
-        jplEditarSocio.add(lblSociosEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 66, 25));
+        jplEditarSocio.add(lblSociosEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 66, 25));
 
         lblSociosEmail.setBackground(new java.awt.Color(255, 255, 255));
         lblSociosEmail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -256,14 +253,6 @@ public class EditMember extends javax.swing.JFrame {
 
         jplEditarSocio.add(jcbSociosCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 210, 26));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 98, 206));
-        jLabel1.setText("Associação:");
-        jLabel1.setPreferredSize(new java.awt.Dimension(40, 15));
-        jplEditarSocio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 70, 26));
-
-        jplEditarSocio.add(jcbSociosAssociacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 210, 26));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,7 +274,10 @@ public class EditMember extends javax.swing.JFrame {
             boolean ativo = true;
             byte[] fotografia = convertImagetoByte(foto);
             System.out.println("Dentro do metodo: " + foto);
-            boolean socioeditado = socioController.editarSocio(txtSociosNumero.getText(), txtSociosNome.getText(), txtSociosMorada.getText(), txtSociosNIF.getText(), txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(), fotografia, ativo, (String) jcbSociosCategoria.getSelectedItem(), (String) jcbSociosAssociacao.getSelectedItem(), username);
+            boolean socioeditado = socioController.editarSocio(txtSociosNumero.getText(),
+                    txtSociosNome.getText(), txtSociosMorada.getText(), txtSociosNIF.getText(),
+                    txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(),
+                    fotografia, ativo, (String) jcbSociosCategoria.getSelectedItem(), username);
             System.out.println("");
             if (!socioeditado) {
                 JOptionPane.showMessageDialog(null, "Socio já existe.\n Insira outros dados.", "Socios", JOptionPane.ERROR_MESSAGE);
@@ -365,9 +357,7 @@ public class EditMember extends javax.swing.JFrame {
     private javax.swing.JButton btnSociosEditar;
     private javax.swing.JButton btnSociosFoto;
     private javax.swing.JCheckBox checkSociosEstado;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JComboBox<String> jcbSociosAssociacao;
     private javax.swing.JComboBox<String> jcbSociosCategoria;
     private javax.swing.JPanel jplEditarSocio;
     private javax.swing.JLabel lblClose;

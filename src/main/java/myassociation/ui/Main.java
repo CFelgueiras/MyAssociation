@@ -121,11 +121,11 @@ public class Main extends javax.swing.JFrame {
         lblSocBtnCartao = new javax.swing.JLabel();
         lblSocRenumerar = new javax.swing.JLabel();
         lblSocBtnApagar = new javax.swing.JLabel();
-        lblSocCartao1 = new javax.swing.JLabel();
+        lblSocCartao = new javax.swing.JLabel();
         lblSocBtnRenumerar = new javax.swing.JLabel();
-        lblSocRemover1 = new javax.swing.JLabel();
+        lblSocApagar = new javax.swing.JLabel();
         lblSocBtnCategoria = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblSocCategoria = new javax.swing.JLabel();
         jplSocTabela = new javax.swing.JPanel();
         lblSocPesquisar = new javax.swing.JLabel();
         jcbSocPesquisar = new javax.swing.JComboBox<>();
@@ -169,7 +169,7 @@ public class Main extends javax.swing.JFrame {
         lblUtilTitulo = new javax.swing.JLabel();
         jplCardListagens = new javax.swing.JPanel();
         lblListagensTitulo = new javax.swing.JLabel();
-        jplCardEstatisticas = new javax.swing.JPanel();
+        jplCardModalidades = new javax.swing.JPanel();
         lblEstatisticasTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -536,10 +536,10 @@ public class Main extends javax.swing.JFrame {
         });
         jplSocBarraFerramentas.add(lblSocBtnApagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 54, 52));
 
-        lblSocCartao1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblSocCartao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSocCartao1.setText("Cartão");
-        jplSocBarraFerramentas.add(lblSocCartao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 54, -1));
+        lblSocCartao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblSocCartao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSocCartao.setText("Cartão");
+        jplSocBarraFerramentas.add(lblSocCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 54, -1));
 
         lblSocBtnRenumerar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSocBtnRenumerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Socios_Renumerar_50px.png"))); // NOI18N
@@ -550,10 +550,10 @@ public class Main extends javax.swing.JFrame {
         });
         jplSocBarraFerramentas.add(lblSocBtnRenumerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 54, 52));
 
-        lblSocRemover1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblSocRemover1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSocRemover1.setText("Apagar");
-        jplSocBarraFerramentas.add(lblSocRemover1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 54, -1));
+        lblSocApagar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblSocApagar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSocApagar.setText("Apagar");
+        jplSocBarraFerramentas.add(lblSocApagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 54, -1));
 
         lblSocBtnCategoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSocBtnCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Socios_Categoria_50px.png"))); // NOI18N
@@ -564,10 +564,10 @@ public class Main extends javax.swing.JFrame {
         });
         jplSocBarraFerramentas.add(lblSocBtnCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 54, 52));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Categoria");
-        jplSocBarraFerramentas.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 70, 60, -1));
+        lblSocCategoria.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblSocCategoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSocCategoria.setText("Categoria");
+        jplSocBarraFerramentas.add(lblSocCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 70, 60, -1));
 
         jplCardSocios.add(jplSocBarraFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1194, -1));
 
@@ -622,7 +622,6 @@ public class Main extends javax.swing.JFrame {
         jplCardBase.add(jplCardSocios, "jplCardSocios");
 
         jplCardQuotas.setBackground(new java.awt.Color(246, 246, 246));
-        jplCardQuotas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jplQuotasBarraFerramentas.setBackground(new java.awt.Color(246, 246, 246));
         jplQuotasBarraFerramentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -666,8 +665,6 @@ public class Main extends javax.swing.JFrame {
         lblQuoConsultar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblQuoConsultar.setText("Consultar");
         jplQuotasBarraFerramentas.add(lblQuoConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 60, -1));
-
-        jplCardQuotas.add(jplQuotasBarraFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1194, -1));
 
         jplSocQuotasTabela.setBackground(new java.awt.Color(246, 246, 246));
         jplSocQuotasTabela.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -717,7 +714,20 @@ public class Main extends javax.swing.JFrame {
 
         jplSocQuotasTabela.add(scrollQuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 1194, 580));
 
-        jplCardQuotas.add(jplSocQuotasTabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 91, -1, -1));
+        javax.swing.GroupLayout jplCardQuotasLayout = new javax.swing.GroupLayout(jplCardQuotas);
+        jplCardQuotas.setLayout(jplCardQuotasLayout);
+        jplCardQuotasLayout.setHorizontalGroup(
+            jplCardQuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jplQuotasBarraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, 1194, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jplSocQuotasTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jplCardQuotasLayout.setVerticalGroup(
+            jplCardQuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jplCardQuotasLayout.createSequentialGroup()
+                .addComponent(jplQuotasBarraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jplSocQuotasTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jplCardBase.add(jplCardQuotas, "jplCardQuotas");
 
@@ -825,16 +835,16 @@ public class Main extends javax.swing.JFrame {
 
         jplCardBase.add(jplCardListagens, "jplCardListagens");
 
-        jplCardEstatisticas.setBackground(new java.awt.Color(246, 246, 246));
-        jplCardEstatisticas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jplCardModalidades.setBackground(new java.awt.Color(246, 246, 246));
+        jplCardModalidades.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblEstatisticasTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblEstatisticasTitulo.setForeground(new java.awt.Color(0, 98, 206));
         lblEstatisticasTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEstatisticasTitulo.setText("ESTATÍSTICAS");
-        jplCardEstatisticas.add(lblEstatisticasTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, -1));
+        jplCardModalidades.add(lblEstatisticasTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, -1));
 
-        jplCardBase.add(jplCardEstatisticas, "jplCardEstatisticas");
+        jplCardBase.add(jplCardModalidades, "jplCardEstatisticas");
 
         javax.swing.GroupLayout jplBaseLayout = new javax.swing.GroupLayout(jplBase);
         jplBase.setLayout(jplBaseLayout);
@@ -903,23 +913,23 @@ public class Main extends javax.swing.JFrame {
     private void lblBotaoListagensMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoListagensMousePressed
         CardLayout card = (CardLayout) jplCardBase.getLayout();
         card.show(jplCardBase, "jplCardListagens");
-        setColor(jplModalidades);
-        resetColor(jplQuotas);
-        resetColor(jplSocios);
-        resetColor(jplCardQuotas);
-        resetColor(jplUtilizadores);
-        resetColor(jplListagens);
-    }//GEN-LAST:event_lblBotaoListagensMousePressed
-
-    private void lblBotaoModalidadesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoModalidadesMousePressed
-        CardLayout card = (CardLayout) jplCardBase.getLayout();
-        card.show(jplCardBase, "jplCardEstatisticas");
         setColor(jplListagens);
         resetColor(jplQuotas);
         resetColor(jplSocios);
         resetColor(jplCardQuotas);
         resetColor(jplUtilizadores);
         resetColor(jplModalidades);
+    }//GEN-LAST:event_lblBotaoListagensMousePressed
+
+    private void lblBotaoModalidadesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoModalidadesMousePressed
+        CardLayout card = (CardLayout) jplCardBase.getLayout();
+        card.show(jplCardBase, "jplCardEstatisticas");
+        setColor(jplModalidades);
+        resetColor(jplQuotas);
+        resetColor(jplSocios);
+        resetColor(jplCardQuotas);
+        resetColor(jplUtilizadores);
+        resetColor(jplListagens);
 
     }//GEN-LAST:event_lblBotaoModalidadesMousePressed
 
@@ -1199,15 +1209,14 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton btnRadioQuotasInativos;
     private javax.swing.JRadioButton btnRadioSocInativos;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JComboBox<String> jcbQuotasPesquisar;
     private javax.swing.JComboBox<String> jcbSocPesquisar;
     private javax.swing.JComboBox<String> jcbUserSearch;
     private javax.swing.JPanel jplBase;
     private javax.swing.JPanel jplCardBase;
-    private javax.swing.JPanel jplCardEstatisticas;
     private javax.swing.JPanel jplCardHome;
     private javax.swing.JPanel jplCardListagens;
+    private javax.swing.JPanel jplCardModalidades;
     private javax.swing.JPanel jplCardQuotas;
     private javax.swing.JPanel jplCardSocios;
     private javax.swing.JPanel jplCardUtilizadores;
@@ -1256,6 +1265,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuotasTitulo;
     private javax.swing.JLabel lblQuotasValidar;
     private javax.swing.JLabel lblSettings;
+    private javax.swing.JLabel lblSocApagar;
     private javax.swing.JLabel lblSocBtnAlterarSocio;
     private javax.swing.JLabel lblSocBtnApagar;
     private javax.swing.JLabel lblSocBtnCartao;
@@ -1263,12 +1273,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblSocBtnCriarSocio;
     private javax.swing.JLabel lblSocBtnDesativar;
     private javax.swing.JLabel lblSocBtnRenumerar;
-    private javax.swing.JLabel lblSocCartao1;
+    private javax.swing.JLabel lblSocCartao;
+    private javax.swing.JLabel lblSocCategoria;
     private javax.swing.JLabel lblSocEditar;
     private javax.swing.JLabel lblSocInativar;
     private javax.swing.JLabel lblSocNovo;
     private javax.swing.JLabel lblSocPesquisar;
-    private javax.swing.JLabel lblSocRemover1;
     private javax.swing.JLabel lblSocRenumerar;
     private javax.swing.JLabel lblSocTitulo;
     private javax.swing.JLabel lblSocValidar;

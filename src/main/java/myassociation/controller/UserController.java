@@ -33,8 +33,8 @@ public class UserController {
         return utilizadorDAO.pesquisaUtilizador(nome);
     }
 
-    public boolean criarUtilizador(String nome, String senha, String grupo, String associacao) {
-        return utilizadorDAO.criarUtilizador(nome, senha, grupo, associacao);
+    public boolean criarUtilizador(String nome, String senha, String grupo) {
+        return utilizadorDAO.criarUtilizador(nome, senha, grupo);
     }
 
     public ArrayList<User> searchUser(String dado, String pesquisa) {

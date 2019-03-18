@@ -20,8 +20,8 @@ public class CreateUser extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 7969534140008029512L;
 
-    private AssociationController associacaoController = new AssociationController();
-    private UserController utilizadorController = new UserController();
+    private AssociationController associacaoController;
+    private UserController utilizadorController;
     private ImageIcon icon;
     private final Object[] joptionpaneoptions = {"Sim", "Não"};
 
@@ -30,7 +30,8 @@ public class CreateUser extends javax.swing.JFrame {
      */
     public CreateUser() {
         initComponents();
-        jcbUtilAssociacao.setModel(new DefaultComboBoxModel<>(associacaoController.listaNomesAssociacoes()));
+        associacaoController = new AssociationController();
+        utilizadorController = new UserController();
         this.setLocationRelativeTo(null);
         this.setIconImage(associacaoController.applicationIcon());
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -53,10 +54,8 @@ public class CreateUser extends javax.swing.JFrame {
         btnUtilCriar = new javax.swing.JButton();
         lblClose = new javax.swing.JLabel();
         lblMinimize = new javax.swing.JLabel();
-        lblUtilAssociacao = new javax.swing.JLabel();
         jcbUtilGrupo = new javax.swing.JComboBox<>();
         lblUtilGrupo = new javax.swing.JLabel();
-        jcbUtilAssociacao = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,7 +89,7 @@ public class CreateUser extends javax.swing.JFrame {
                 btnUtilCriarActionPerformed(evt);
             }
         });
-        jplUtilCriar.add(btnUtilCriar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 93, 40));
+        jplUtilCriar.add(btnUtilCriar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 93, 40));
 
         lblClose.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblClose.setForeground(new java.awt.Color(0, 98, 206));
@@ -116,11 +115,6 @@ public class CreateUser extends javax.swing.JFrame {
         });
         jplUtilCriar.add(lblMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 32, 32));
 
-        lblUtilAssociacao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblUtilAssociacao.setForeground(new java.awt.Color(0, 98, 206));
-        lblUtilAssociacao.setText("Associação:");
-        jplUtilCriar.add(lblUtilAssociacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 80, 24));
-
         jcbUtilGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard", "Administrador", "Basico" }));
         jplUtilCriar.add(jcbUtilGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 290, 24));
 
@@ -128,7 +122,6 @@ public class CreateUser extends javax.swing.JFrame {
         lblUtilGrupo.setForeground(new java.awt.Color(0, 98, 206));
         lblUtilGrupo.setText("Grupo:");
         jplUtilCriar.add(lblUtilGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 54, 24));
-        jplUtilCriar.add(jcbUtilAssociacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 290, 24));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 98, 206));
@@ -144,7 +137,7 @@ public class CreateUser extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jplUtilCriar, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+            .addComponent(jplUtilCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -154,7 +147,7 @@ public class CreateUser extends javax.swing.JFrame {
         if (txtUtilNome.getText().isEmpty() || pwdUtilSenha.getPassword().equals("")) {
             JOptionPane.showMessageDialog(null, "Os dados do utilizador não podem ser vazios. \nInsira um utilizador e uma senha.", "Criar Utilizador", JOptionPane.ERROR_MESSAGE);
         } else {
-            boolean utilcriado = utilizadorController.criarUtilizador(txtUtilNome.getText(), String.valueOf(pwdUtilSenha.getPassword()), (String) jcbUtilGrupo.getSelectedItem(), (String) jcbUtilAssociacao.getSelectedItem());
+            boolean utilcriado = utilizadorController.criarUtilizador(txtUtilNome.getText(), String.valueOf(pwdUtilSenha.getPassword()), (String) jcbUtilGrupo.getSelectedItem());
             if (utilcriado) {
                 JOptionPane.showMessageDialog(null, "Utilizador criado com sucesso.", "Utilizador", JOptionPane.INFORMATION_MESSAGE);
                 txtUtilNome.setText("");
@@ -190,12 +183,10 @@ public class CreateUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnUtilCriar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JComboBox<String> jcbUtilAssociacao;
     private javax.swing.JComboBox<String> jcbUtilGrupo;
     private javax.swing.JPanel jplUtilCriar;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblMinimize;
-    private javax.swing.JLabel lblUtilAssociacao;
     private javax.swing.JLabel lblUtilGrupo;
     private javax.swing.JLabel lblUtilNome;
     private javax.swing.JLabel lblUtilSenha;
