@@ -35,8 +35,8 @@ public class EditMember extends javax.swing.JFrame {
 
     private static final long serialVersionUID = -7748229361707008924L;
 
-    private MemberController socioController = new MemberController();
-    private AssociationController assocController = new AssociationController();
+    private MemberController socioController;
+    private AssociationController assocController;
     private Point initialClick;
     private BufferedImage foto;
     private File ficheiro;
@@ -53,6 +53,8 @@ public class EditMember extends javax.swing.JFrame {
      */
     public EditMember(Member member, String username) throws IOException {
         initComponents();
+        socioController = new MemberController();
+        assocController = new AssociationController();
         this.member = member;
         this.username = username;
         setDados();
@@ -283,7 +285,7 @@ public class EditMember extends javax.swing.JFrame {
             boolean ativo = true;
             byte[] fotografia = convertImagetoByte(foto);
             System.out.println("Dentro do metodo: " + foto);
-            boolean socioeditado = socioController.editarSocio(txtSociosNumero.getText(), txtSociosNome.getText(), txtSociosMorada.getText(), txtSociosNIF.getText(), txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(), fotografia, ativo, (String)jcbSociosCategoria.getSelectedItem(), (String)jcbSociosAssociacao.getSelectedItem(), username);
+            boolean socioeditado = socioController.editarSocio(txtSociosNumero.getText(), txtSociosNome.getText(), txtSociosMorada.getText(), txtSociosNIF.getText(), txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(), fotografia, ativo, (String) jcbSociosCategoria.getSelectedItem(), (String) jcbSociosAssociacao.getSelectedItem(), username);
             System.out.println("");
             if (!socioeditado) {
                 JOptionPane.showMessageDialog(null, "Socio já existe.\n Insira outros dados.", "Socios", JOptionPane.ERROR_MESSAGE);

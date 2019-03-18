@@ -97,8 +97,8 @@ public class Main extends javax.swing.JFrame {
         lblBotaoQuotas = new javax.swing.JLabel();
         lblQuotasDescricao = new javax.swing.JLabel();
         jplModalidades = new javax.swing.JPanel();
-        lblBotaoEstatisticas = new javax.swing.JLabel();
-        lblEstatisticasDescricao = new javax.swing.JLabel();
+        lblBotaoModalidades = new javax.swing.JLabel();
+        lblModalidadesDescricao = new javax.swing.JLabel();
         jplListagens = new javax.swing.JPanel();
         lblBotaoListagens = new javax.swing.JLabel();
         lblListagensDescricao = new javax.swing.JLabel();
@@ -378,21 +378,21 @@ public class Main extends javax.swing.JFrame {
         jplModalidades.setBackground(new java.awt.Color(255, 255, 255));
         jplModalidades.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblBotaoEstatisticas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBotaoEstatisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Modalidades_64px.png"))); // NOI18N
-        lblBotaoEstatisticas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblBotaoEstatisticas.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBotaoModalidades.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBotaoModalidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Modalidades_64px.png"))); // NOI18N
+        lblBotaoModalidades.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblBotaoModalidades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblBotaoEstatisticasMousePressed(evt);
+                lblBotaoModalidadesMousePressed(evt);
             }
         });
-        jplModalidades.add(lblBotaoEstatisticas, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 0, -1, 56));
+        jplModalidades.add(lblBotaoModalidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 0, -1, 56));
 
-        lblEstatisticasDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblEstatisticasDescricao.setForeground(new java.awt.Color(45, 118, 232));
-        lblEstatisticasDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEstatisticasDescricao.setText("MODALIDADES");
-        jplModalidades.add(lblEstatisticasDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 56, 98, -1));
+        lblModalidadesDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModalidadesDescricao.setForeground(new java.awt.Color(45, 118, 232));
+        lblModalidadesDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModalidadesDescricao.setText("MODALIDADES");
+        jplModalidades.add(lblModalidadesDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 56, 98, -1));
 
         jplSideBar.add(jplModalidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 100, 90));
 
@@ -911,7 +911,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(jplListagens);
     }//GEN-LAST:event_lblBotaoListagensMousePressed
 
-    private void lblBotaoEstatisticasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoEstatisticasMousePressed
+    private void lblBotaoModalidadesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoModalidadesMousePressed
         CardLayout card = (CardLayout) jplCardBase.getLayout();
         card.show(jplCardBase, "jplCardEstatisticas");
         setColor(jplListagens);
@@ -921,7 +921,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(jplUtilizadores);
         resetColor(jplModalidades);
 
-    }//GEN-LAST:event_lblBotaoEstatisticasMousePressed
+    }//GEN-LAST:event_lblBotaoModalidadesMousePressed
 
     private void jplBaseMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jplBaseMouseDragged
         try {
@@ -1228,8 +1228,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jplUtilizadores;
     private javax.swing.JLabel lblAbout;
     private javax.swing.JLabel lblAjuda;
-    private javax.swing.JLabel lblBotaoEstatisticas;
     private javax.swing.JLabel lblBotaoListagens;
+    private javax.swing.JLabel lblBotaoModalidades;
     private javax.swing.JLabel lblBotaoQuotas;
     private javax.swing.JLabel lblBotaoSocios;
     private javax.swing.JLabel lblBotaoUtilizadores;
@@ -1237,13 +1237,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblCalculator;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblDefinicoes;
-    private javax.swing.JLabel lblEstatisticasDescricao;
     private javax.swing.JLabel lblEstatisticasTitulo;
     private javax.swing.JLabel lblHomeSociosativos;
     private javax.swing.JLabel lblListagensDescricao;
     private javax.swing.JLabel lblListagensTitulo;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMinimize;
+    private javax.swing.JLabel lblModalidadesDescricao;
     private javax.swing.JLabel lblNomeAssociacao;
     private javax.swing.JLabel lblQuoBtnConsultar;
     private javax.swing.JLabel lblQuoBtnImprimir;
