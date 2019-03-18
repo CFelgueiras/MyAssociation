@@ -13,7 +13,7 @@ public class ConnectDB {
 
     private static final String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String CONNECTIONURL = "jdbc:sqlserver://localhost:1433;" +  
-   "databaseName=MYASSOCIATION;user=sa;password=Myassociation2018;";  
+   "databaseName=MYASSOCIATION;user=sa;password=00;";  
     private static Connection conexao;
 
     /**
