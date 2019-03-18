@@ -29,7 +29,7 @@ public class UserImpl implements IUserDAO {
             String query = "SELECT utilizador,senha FROM UTILIZADOR WHERE utilizador = ? AND senha = ?";
             PreparedStatement login = ConnectDB.conexaoBD().prepareStatement(query);
             login.setString(1, nome);
-            login.setBytes(2, EncryptUtils.encrypt(senha));
+            login.setString(2, EncryptUtils.encrypt(senha));//
             ResultSet resultLogin = login.executeQuery();
 
             if (resultLogin.next()) {
@@ -100,18 +100,18 @@ public class UserImpl implements IUserDAO {
                         + "             senha,"
                         + "             datacriacao,"
                         + "             datamodificacao,"
-                        + "             IDGRUPOUTILIZADOR,"
-                        + "             IDASSOCIACAO"
-                        + ") VALUES (?,?,?,?,?,?)";
+                        + "             IDGRUPOUTILIZADOR"
+                        + "             "
+                        + ") VALUES (?,?,?,?,?)";
                 PreparedStatement criarutil = ConnectDB.conexaoBD()
                         .prepareStatement(query);
                 System.out.println(query);
                 criarutil.setString(1, utilizador);
-                criarutil.setBytes(2, EncryptUtils.encrypt(senha));
+                criarutil.setString(2, EncryptUtils.encrypt(senha));
                 criarutil.setDate(3, date);
                 criarutil.setDate(4, date);
                 criarutil.setInt(5, idgrupoutilizador);
-                criarutil.setInt(6, idassociacao);
+                //criarutil.setInt(6, idassociacao);
                 criarutil.executeUpdate();
 
                 utilcriado = true;
