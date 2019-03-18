@@ -8,7 +8,9 @@ import javax.crypto.spec.PBEKeySpec;
 
 /**
  * Helper class with encryption tools.
- *
+ * 
+ * Use Case : 31
+ * 
  * @author Francisco Martins<francisco_jcm_7@hotmail.com>
  */
 public class EncryptUtils {
