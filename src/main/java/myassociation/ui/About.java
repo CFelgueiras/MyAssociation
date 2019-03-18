@@ -100,7 +100,7 @@ public class About extends javax.swing.JFrame {
         txtAbout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtAbout.setForeground(new java.awt.Color(255, 255, 255));
         txtAbout.setRows(5);
-        txtAbout.setText(" MyAssociation v1.0\n\n\n email: \n claudio.felgueiras@gmail.com\n\n Cláudio Felgueiras\n @2018");
+        txtAbout.setText(" MyAssociation v1.0\n\n Desenvolvido por:\n  - Cláudio Felgueiras\n  - Francisco Pereira\n  - Francisco Martins\n\n 2018");
         txtAbout.setBorder(null);
         txtAbout.setRequestFocusEnabled(false);
 

@@ -170,7 +170,23 @@ public class Main extends javax.swing.JFrame {
         jplCardListagens = new javax.swing.JPanel();
         lblListagensTitulo = new javax.swing.JLabel();
         jplCardModalidades = new javax.swing.JPanel();
-        lblEstatisticasTitulo = new javax.swing.JLabel();
+        jplModBarraFerramentas = new javax.swing.JPanel();
+        lblModBtnCriarModalidade = new javax.swing.JLabel();
+        lblModTitulo = new javax.swing.JLabel();
+        lblModCriar = new javax.swing.JLabel();
+        lblModBtnAlterarModalidade = new javax.swing.JLabel();
+        lblModEditar = new javax.swing.JLabel();
+        lblModBtnInativar = new javax.swing.JLabel();
+        lblModInativar = new javax.swing.JLabel();
+        lblModBtnVisualizar = new javax.swing.JLabel();
+        lblModCartao = new javax.swing.JLabel();
+        jplModTabela = new javax.swing.JPanel();
+        lblModPesquisar = new javax.swing.JLabel();
+        txtModPesquisar = new javax.swing.JTextField();
+        scrollModalidades = new javax.swing.JScrollPane();
+        tblModalidades = new javax.swing.JTable();
+        lblModValidar = new javax.swing.JLabel();
+        btnRadioModInativas = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -838,11 +854,119 @@ public class Main extends javax.swing.JFrame {
         jplCardModalidades.setBackground(new java.awt.Color(246, 246, 246));
         jplCardModalidades.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblEstatisticasTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblEstatisticasTitulo.setForeground(new java.awt.Color(0, 98, 206));
-        lblEstatisticasTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEstatisticasTitulo.setText("ESTATÍSTICAS");
-        jplCardModalidades.add(lblEstatisticasTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, -1));
+        jplModBarraFerramentas.setBackground(new java.awt.Color(246, 246, 246));
+        jplModBarraFerramentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jplModBarraFerramentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblModBtnCriarModalidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModBtnCriarModalidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Modalidades_Criar_50px.png"))); // NOI18N
+        lblModBtnCriarModalidade.setPreferredSize(new java.awt.Dimension(40, 40));
+        lblModBtnCriarModalidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblModBtnCriarModalidadeMousePressed(evt);
+            }
+        });
+        jplModBarraFerramentas.add(lblModBtnCriarModalidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 54, 52));
+
+        lblModTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblModTitulo.setForeground(new java.awt.Color(0, 98, 206));
+        lblModTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModTitulo.setText("MODALIDADES");
+        lblModTitulo.setToolTipText("");
+        jplModBarraFerramentas.add(lblModTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, -1));
+
+        lblModCriar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModCriar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModCriar.setText("Criar");
+        jplModBarraFerramentas.add(lblModCriar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 54, -1));
+
+        lblModBtnAlterarModalidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModBtnAlterarModalidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Modalidades_Editar_50px.png"))); // NOI18N
+        lblModBtnAlterarModalidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblModBtnAlterarModalidadeMousePressed(evt);
+            }
+        });
+        jplModBarraFerramentas.add(lblModBtnAlterarModalidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 54, 52));
+
+        lblModEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModEditar.setText("Editar");
+        jplModBarraFerramentas.add(lblModEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 54, -1));
+
+        lblModBtnInativar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModBtnInativar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Modalidades_Inativar_50px.png"))); // NOI18N
+        lblModBtnInativar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblModBtnInativar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblModBtnInativardBtnInativarModalidadeMousePressed(evt);
+            }
+        });
+        jplModBarraFerramentas.add(lblModBtnInativar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, 52));
+
+        lblModInativar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModInativar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModInativar.setText("Inativar");
+        jplModBarraFerramentas.add(lblModInativar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, -1, -1));
+
+        lblModBtnVisualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModBtnVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Modalidades_Visualizar_50px.png"))); // NOI18N
+        lblModBtnVisualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblModBtnVisualizarMousePressed(evt);
+            }
+        });
+        jplModBarraFerramentas.add(lblModBtnVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 54, 52));
+
+        lblModCartao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModCartao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModCartao.setText("Visualizar");
+        jplModBarraFerramentas.add(lblModCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 56, -1));
+
+        jplCardModalidades.add(jplModBarraFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1194, -1));
+
+        jplModTabela.setBackground(new java.awt.Color(246, 246, 246));
+        jplModTabela.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jplModTabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblModPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblModPesquisar.setText("Pesquisar:");
+        jplModTabela.add(lblModPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 12, 103, 37));
+        jplModTabela.add(txtModPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 11, 940, 38));
+
+        tblModalidades.setBackground(new java.awt.Color(246, 246, 246));
+        tblModalidades.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
+            }
+        ));
+        scrollModalidades.setViewportView(tblModalidades);
+
+        jplModTabela.add(scrollModalidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 1194, 575));
+
+        lblModValidar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Filtrar_40px.png"))); // NOI18N
+        lblModValidar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblModValidar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblModValidar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblModValidarMousePressed(evt);
+            }
+        });
+        jplModTabela.add(lblModValidar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 11, -1, 38));
+
+        btnRadioModInativas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnRadioModInativas.setText("Inativos");
+        btnRadioModInativas.setActionCommand("Inativas");
+        btnRadioModInativas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jplModTabela.add(btnRadioModInativas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1023, 18, 97, -1));
+
+        jplCardModalidades.add(jplModTabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 91, -1, 635));
 
         jplCardBase.add(jplCardModalidades, "jplCardEstatisticas");
 
@@ -1146,6 +1270,26 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblSocBtnRenumerarMousePressed
 
+    private void lblModBtnCriarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnCriarModalidadeMousePressed
+        new CreateSport().setVisible(true);
+    }//GEN-LAST:event_lblModBtnCriarModalidadeMousePressed
+
+    private void lblModBtnAlterarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnAlterarModalidadeMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblModBtnAlterarModalidadeMousePressed
+
+    private void lblModBtnInativardBtnInativarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnInativardBtnInativarModalidadeMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblModBtnInativardBtnInativarModalidadeMousePressed
+
+    private void lblModBtnVisualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnVisualizarMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblModBtnVisualizarMousePressed
+
+    private void lblModValidarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModValidarMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblModValidarMousePressed
+
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(196, 219, 255));
     }
@@ -1207,6 +1351,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton btnRadioModInativas;
     private javax.swing.JRadioButton btnRadioQuotasInativos;
     private javax.swing.JRadioButton btnRadioSocInativos;
     private javax.swing.JComboBox<String> jcbQuotasPesquisar;
@@ -1224,6 +1369,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jplListaUtilizadores;
     private javax.swing.JPanel jplListagens;
     private javax.swing.JPanel jplMinimize;
+    private javax.swing.JPanel jplModBarraFerramentas;
+    private javax.swing.JPanel jplModTabela;
     private javax.swing.JPanel jplModalidades;
     private javax.swing.JPanel jplQuotas;
     private javax.swing.JPanel jplQuotasBarraFerramentas;
@@ -1246,12 +1393,22 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblCalculator;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblDefinicoes;
-    private javax.swing.JLabel lblEstatisticasTitulo;
     private javax.swing.JLabel lblHomeSociosativos;
     private javax.swing.JLabel lblListagensDescricao;
     private javax.swing.JLabel lblListagensTitulo;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMinimize;
+    private javax.swing.JLabel lblModBtnAlterarModalidade;
+    private javax.swing.JLabel lblModBtnCriarModalidade;
+    private javax.swing.JLabel lblModBtnInativar;
+    private javax.swing.JLabel lblModBtnVisualizar;
+    private javax.swing.JLabel lblModCartao;
+    private javax.swing.JLabel lblModCriar;
+    private javax.swing.JLabel lblModEditar;
+    private javax.swing.JLabel lblModInativar;
+    private javax.swing.JLabel lblModPesquisar;
+    private javax.swing.JLabel lblModTitulo;
+    private javax.swing.JLabel lblModValidar;
     private javax.swing.JLabel lblModalidadesDescricao;
     private javax.swing.JLabel lblNomeAssociacao;
     private javax.swing.JLabel lblQuoBtnConsultar;
@@ -1296,13 +1453,16 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblUtilizadoresDescricao;
     private javax.swing.JLabel lblola;
     private javax.swing.JLabel lblusername;
+    private javax.swing.JScrollPane scrollModalidades;
     private javax.swing.JScrollPane scrollQuotas;
     private javax.swing.JScrollPane scrollSocios;
     private javax.swing.JScrollPane scrollUsers;
+    private javax.swing.JTable tblModalidades;
     private javax.swing.JTable tblQuotas;
     private javax.swing.JTable tblSocios;
     private javax.swing.JTable tblUsers;
     private javax.swing.JTextField txtHomeTotalSocios;
+    private javax.swing.JTextField txtModPesquisar;
     private javax.swing.JTextField txtQuotasPesquisar;
     private javax.swing.JTextField txtSocPesquisar;
     private javax.swing.JTextField txtUserSearch;

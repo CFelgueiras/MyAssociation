@@ -5,6 +5,9 @@
  */
 package myassociation.model;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Cláudio Felgueiras
@@ -13,7 +16,11 @@ public class Application {
 
     private String currentUser;
 
+    private static byte[] logotipo;
+    private static ImageIcon icon;
+
     public Application() {
+        icon = new ImageIcon(getClass().getResource("/Resources/app_images/Blue_MyAssociation_100px.png"));
     }
 
     public void setCurrentUser(String username) {
@@ -22,5 +29,18 @@ public class Application {
 
     public String getCurrentUser() {
         return this.currentUser;
+    }
+
+    public byte[] getLogotipo() {
+        return logotipo;
+    }
+
+    public void setLogotipo(byte[] logotipo) {
+        Application.logotipo = logotipo;
+    }
+
+    public static Image getIcon() {
+        Image iconimage = icon.getImage();
+        return iconimage;
     }
 }
