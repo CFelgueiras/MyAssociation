@@ -300,7 +300,7 @@ public class Main extends javax.swing.JFrame {
 
         lblAbout.setForeground(new java.awt.Color(255, 255, 255));
         lblAbout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAbout.setText("Ajuda");
+        lblAbout.setText("Acerca");
         jplTop.add(lblAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 75, 45, -1));
 
         lblCalculadora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

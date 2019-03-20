@@ -166,7 +166,7 @@ public class AssociationSettings extends javax.swing.JFrame {
                 btnGeneralSaveActionPerformed(evt);
             }
         });
-        jplGeneralSettings.add(btnGeneralSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 93, 40));
+        jplGeneralSettings.add(btnGeneralSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 93, 40));
 
         jplSettingsLogo.setBackground(new java.awt.Color(246, 246, 246));
         jplSettingsLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -190,7 +190,7 @@ public class AssociationSettings extends javax.swing.JFrame {
         lblAssocName2.setText("Logótipo da aplicação:");
         jplSettingsLogo.add(lblAssocName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 26));
 
-        jplGeneralSettings.add(jplSettingsLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 700, 160));
+        jplGeneralSettings.add(jplSettingsLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 700, 160));
 
         jplSettingsColor.setBackground(new java.awt.Color(246, 246, 246));
         jplSettingsColor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -203,7 +203,7 @@ public class AssociationSettings extends javax.swing.JFrame {
         lblGeneralColor.setText("Côr dos menus:");
         jplSettingsColor.add(lblGeneralColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
-        jplGeneralSettings.add(jplSettingsColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 700, 250));
+        jplGeneralSettings.add(jplSettingsColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 700, 250));
 
         jtabbedAssocSettings.addTab("Geral", jplGeneralSettings);
 
@@ -240,7 +240,7 @@ public class AssociationSettings extends javax.swing.JFrame {
                 btnAssocSaveActionPerformed(evt);
             }
         });
-        jplAssociationSettings.add(btnAssocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 93, 40));
+        jplAssociationSettings.add(btnAssocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 433, 93, 40));
 
         lblAssocEmail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAssocEmail.setForeground(new java.awt.Color(0, 98, 206));
@@ -286,7 +286,6 @@ public class AssociationSettings extends javax.swing.JFrame {
         lblAssocVogal5.setForeground(new java.awt.Color(0, 98, 206));
         lblAssocVogal5.setText("Vogal 5:");
         jplAssociationSettings.add(lblAssocVogal5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 140, 26));
-        lblAssocVogal5.getAccessibleContext().setAccessibleName("Vogal 5:");
 
         lblAssocVogal4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblAssocVogal4.setForeground(new java.awt.Color(0, 98, 206));
@@ -326,7 +325,7 @@ public class AssociationSettings extends javax.swing.JFrame {
 
         jplMainSettings.add(jtabbedAssocSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 750, 510));
 
-        getContentPane().add(jplMainSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 550));
+        getContentPane().add(jplMainSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
