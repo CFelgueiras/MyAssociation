@@ -6,14 +6,14 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- * Database connector class using Singleton Desing Patern
+ * Database connector class using Singleton Design Pattern
  * @author Claudio Felgueiras
  */
 public class ConnectDB {
 
     private static final String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String CONNECTIONURL = "jdbc:sqlserver://localhost:1433;" +  
-   "databaseName=MYASSOCIATION;user=sa;password=00;";  
+   "databaseName=MYASSOCIATION;user=sa;password=Myassociation2018;";  
     private static Connection conexao;
 
     /**

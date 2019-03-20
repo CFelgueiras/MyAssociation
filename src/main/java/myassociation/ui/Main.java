@@ -17,9 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import myassociation.controller.AssociationController;
 import myassociation.controller.MemberController;
+import myassociation.controller.SportController;
 import myassociation.controller.UserController;
 import myassociation.model.Association;
 import myassociation.model.Member;
+import myassociation.model.Sport;
 import myassociation.model.User;
 
 /**
@@ -33,8 +35,10 @@ public class Main extends javax.swing.JFrame {
     private AssociationController assocController;
     private UserController utilizadorController;
     private MemberController socioController;
+    private SportController modalidadeController;
     private javax.swing.table.DefaultTableModel tabelasocios = new javax.swing.table.DefaultTableModel(new String[]{"Numero", "NIF", "Nome", "Telefone", "Telemovel", "Morada", "Email", "Data criação", "Data modificação", "Utilizador", "Categoria"}, 0);
-    private javax.swing.table.DefaultTableModel tableusers = new javax.swing.table.DefaultTableModel(new String[]{"Utilizador", "Data criacao", "Data modificacao", "Grupo", "Associacao"}, 0);
+    private javax.swing.table.DefaultTableModel tableusers = new javax.swing.table.DefaultTableModel(new String[]{"Utilizador", "Data criação", "Data modificacao", "Grupo"}, 0);
+    private javax.swing.table.DefaultTableModel tabelaModalidades = new javax.swing.table.DefaultTableModel(new String[]{"Nome", "Responsável", "Data criação", "Data modificação", "Utilizador"}, 0);
     private final Object[] joptionpaneoptions = {"Sim", "Não"};
     private Point initialClick;
     private String username;
@@ -50,6 +54,7 @@ public class Main extends javax.swing.JFrame {
         assocController = new AssociationController();
         utilizadorController = new UserController();
         socioController = new MemberController();
+        modalidadeController = new SportController();
         setAssociationName();
         this.username = username;
         lblusername.setText(username);
@@ -60,6 +65,8 @@ public class Main extends javax.swing.JFrame {
         tblUsers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblQuotas.setModel(tabelasocios);
         tblQuotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblModalidades.setModel(tabelaModalidades);
+        tblModalidades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.setIconImage(assocController.applicationIcon());
     }
 
@@ -187,6 +194,7 @@ public class Main extends javax.swing.JFrame {
         tblModalidades = new javax.swing.JTable();
         lblModValidar = new javax.swing.JLabel();
         btnRadioModInativas = new javax.swing.JRadioButton();
+        jcbModPesquisar = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -932,7 +940,7 @@ public class Main extends javax.swing.JFrame {
         lblModPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblModPesquisar.setText("Pesquisar:");
         jplModTabela.add(lblModPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 12, 103, 37));
-        jplModTabela.add(txtModPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 11, 940, 38));
+        jplModTabela.add(txtModPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 11, 750, 38));
 
         tblModalidades.setBackground(new java.awt.Color(246, 246, 246));
         tblModalidades.setModel(new javax.swing.table.DefaultTableModel(
@@ -965,6 +973,12 @@ public class Main extends javax.swing.JFrame {
         btnRadioModInativas.setActionCommand("Inativas");
         btnRadioModInativas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jplModTabela.add(btnRadioModInativas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1023, 18, 97, -1));
+
+        jcbModPesquisar.setBackground(new java.awt.Color(240, 240, 240));
+        jcbModPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcbModPesquisar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Responsavel" }));
+        jcbModPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jplModTabela.add(jcbModPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 12, 149, 37));
 
         jplCardModalidades.add(jplModTabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 91, -1, 635));
 
@@ -1271,11 +1285,16 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_lblSocBtnRenumerarMousePressed
 
     private void lblModBtnCriarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnCriarModalidadeMousePressed
-        new CreateSport().setVisible(true);
+        new CreateSport(username).setVisible(true);
     }//GEN-LAST:event_lblModBtnCriarModalidadeMousePressed
 
     private void lblModBtnAlterarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnAlterarModalidadeMousePressed
-        // TODO add your handling code here:
+        try {
+            Sport modalidade = modalidadeController.pesquisarModalidadePorNome(tabelaModalidades.getValueAt(tblModalidades.getSelectedRow(), 0).toString());
+            new EditSport(modalidade, username).setVisible(true);
+        } catch (java.lang.ArrayIndexOutOfBoundsException execp) {
+            JOptionPane.showMessageDialog(this, "Nenhuma modalidade seleccionada para edição. \nEfetue uma pesquisa primeiro.", "Impossivel alterar", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_lblModBtnAlterarModalidadeMousePressed
 
     private void lblModBtnInativardBtnInativarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnInativardBtnInativarModalidadeMousePressed
@@ -1287,7 +1306,17 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_lblModBtnVisualizarMousePressed
 
     private void lblModValidarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModValidarMousePressed
-        // TODO add your handling code here:
+        tabelaModalidades.setRowCount(0);
+
+        ArrayList<Sport> listaModalidades = modalidadeController.listarModalidades((String) jcbModPesquisar.getSelectedItem(), txtModPesquisar.getText(), !btnRadioModInativas.isSelected());
+        if (listaModalidades.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "0 resultados encontrados para a pesquisada efetuada.", "Resultados", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            for (int i = 0; i < listaModalidades.size(); i++) {
+                tabelaModalidades.addRow(new Object[]{listaModalidades.get(i).getNome(), listaModalidades.get(i).getResponsavel(), listaModalidades.get(i).getDatacriacao(), listaModalidades.get(i).getDatamodif(), listaModalidades.get(i).getUtilizador()});
+            }
+        }
+        tabelaModalidades.fireTableDataChanged();
     }//GEN-LAST:event_lblModValidarMousePressed
 
     public void setColor(JPanel panel) {
@@ -1354,6 +1383,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnRadioModInativas;
     private javax.swing.JRadioButton btnRadioQuotasInativos;
     private javax.swing.JRadioButton btnRadioSocInativos;
+    private javax.swing.JComboBox<String> jcbModPesquisar;
     private javax.swing.JComboBox<String> jcbQuotasPesquisar;
     private javax.swing.JComboBox<String> jcbSocPesquisar;
     private javax.swing.JComboBox<String> jcbUserSearch;

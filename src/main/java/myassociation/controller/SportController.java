@@ -5,7 +5,9 @@
  */
 package myassociation.controller;
 
+import java.util.ArrayList;
 import myassociation.dal.SportImpl;
+import myassociation.model.Sport;
 
 /**
  *
@@ -15,8 +17,20 @@ public class SportController {
 
     SportImpl sportDAO = new SportImpl();
 
-    public boolean criarModalidade(String nome, String responsavel, boolean estado) {
-        return sportDAO.criarModalidade(nome, responsavel, estado);
+    public boolean criarModalidade(String nome, String responsavel, boolean estado, String username) {
+        return sportDAO.criarModalidade(nome, responsavel, estado, username);
+    }
+
+    public Sport pesquisarModalidadePorNome(String nome) {
+        return sportDAO.pesquisarModalidadePorNome(nome);
+    }
+
+    public ArrayList<Sport> listarModalidades(String dado, String pesquisa, boolean ativo) {
+        return sportDAO.listarModalidades(dado, pesquisa, ativo);
+    }
+
+    public boolean editarModalidade(String nome, String responsavel, boolean ativo, String username) {
+        return sportDAO.editarModalidade(nome, responsavel, ativo, username);
     }
 
 }

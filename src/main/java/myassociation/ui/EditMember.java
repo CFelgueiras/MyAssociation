@@ -228,7 +228,7 @@ public class EditMember extends javax.swing.JFrame {
                 btnSociosCancelarActionPerformed(evt);
             }
         });
-        jplEditarSocio.add(btnSociosCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 93, 40));
+        jplEditarSocio.add(btnSociosCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 93, 40));
 
         btnSociosEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSociosEditar.setForeground(new java.awt.Color(0, 98, 206));
@@ -238,7 +238,7 @@ public class EditMember extends javax.swing.JFrame {
                 btnSociosEditarActionPerformed(evt);
             }
         });
-        jplEditarSocio.add(btnSociosEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 93, 40));
+        jplEditarSocio.add(btnSociosEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 93, 40));
 
         lblEditarSocioTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblEditarSocioTitulo.setForeground(new java.awt.Color(0, 98, 206));
@@ -273,22 +273,19 @@ public class EditMember extends javax.swing.JFrame {
         try {
             boolean ativo = true;
             byte[] fotografia = convertImagetoByte(foto);
-            System.out.println("Dentro do metodo: " + foto);
             boolean socioeditado = socioController.editarSocio(txtSociosNumero.getText(),
                     txtSociosNome.getText(), txtSociosMorada.getText(), txtSociosNIF.getText(),
                     txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(),
                     fotografia, ativo, (String) jcbSociosCategoria.getSelectedItem(), username);
-            System.out.println("");
             if (!socioeditado) {
-                JOptionPane.showMessageDialog(null, "Socio já existe.\n Insira outros dados.", "Socios", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Socio já existe.\n Insira outros dados.", "Sócios", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Socio editado com sucesso.", "Socios", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sócio editado com sucesso.", "Sócios", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             }
         } catch (IOException ex) {
             System.out.println(ex);
         }
-
     }//GEN-LAST:event_btnSociosEditarActionPerformed
 
     private void btnSociosFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSociosFotoActionPerformed

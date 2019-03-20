@@ -5,38 +5,45 @@
  */
 package myassociation.ui;
 
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import myassociation.controller.AssociationController;
 import myassociation.controller.SportController;
 import myassociation.controller.UserController;
+import myassociation.model.Sport;
 
 /**
  *
  * @author Cláudio Felgueiras
  */
-public class CreateSport extends javax.swing.JFrame {
+public class EditSport extends javax.swing.JFrame {
 
-    private static final long serialVersionUID = 9159801668819494747L;
+    private static final long serialVersionUID = 969704772561189841L;
 
     private AssociationController associacaoController;
     private SportController modalidadeController;
     private UserController utilizadorController;
-    String username;
+    private Sport modalidade;
+    private String username;
     private ImageIcon icon;
     private final Object[] joptionpaneoptions = {"Sim", "Não"};
 
     /**
      * Creates new form CriarUtilizador
+     *
+     * @param modalidade
      * @param username
      */
-    public CreateSport(String username) {
+    public EditSport(Sport modalidade, String username) {
         initComponents();
         modalidadeController = new SportController();
         associacaoController = new AssociationController();
         utilizadorController = new UserController();
+        this.modalidade = modalidade;
         this.username = username;
+        setDados();
         this.setLocationRelativeTo(null);
         this.setIconImage(associacaoController.applicationIcon());
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -55,11 +62,14 @@ public class CreateSport extends javax.swing.JFrame {
         lblModNome = new javax.swing.JLabel();
         lblModResponsavel = new javax.swing.JLabel();
         txtModResponsavel = new javax.swing.JTextField();
-        btnModCriar = new javax.swing.JButton();
+        btnModValidar = new javax.swing.JButton();
         lblClose = new javax.swing.JLabel();
         lblMinimize = new javax.swing.JLabel();
-        lblModCriar = new javax.swing.JLabel();
+        lblModEditar = new javax.swing.JLabel();
         txtModNome = new javax.swing.JTextField();
+        btnModCancelar = new javax.swing.JButton();
+        lblModEstado = new javax.swing.JLabel();
+        checkModEstado = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frmCreateUser"); // NOI18N
@@ -82,16 +92,16 @@ public class CreateSport extends javax.swing.JFrame {
         jplUtilCriar.add(lblModResponsavel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 90, 26));
         jplUtilCriar.add(txtModResponsavel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 290, 26));
 
-        btnModCriar.setBackground(new java.awt.Color(255, 255, 255));
-        btnModCriar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnModCriar.setForeground(new java.awt.Color(0, 98, 206));
-        btnModCriar.setText("Criar");
-        btnModCriar.addActionListener(new java.awt.event.ActionListener() {
+        btnModValidar.setBackground(new java.awt.Color(255, 255, 255));
+        btnModValidar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnModValidar.setForeground(new java.awt.Color(0, 98, 206));
+        btnModValidar.setText("Validar");
+        btnModValidar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModCriarActionPerformed(evt);
+                btnModValidarActionPerformed(evt);
             }
         });
-        jplUtilCriar.add(btnModCriar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 93, 40));
+        jplUtilCriar.add(btnModValidar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 93, 40));
 
         lblClose.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblClose.setForeground(new java.awt.Color(0, 98, 206));
@@ -103,7 +113,7 @@ public class CreateSport extends javax.swing.JFrame {
                 lblCloseMousePressed(evt);
             }
         });
-        jplUtilCriar.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 32, 32));
+        jplUtilCriar.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 32, 32));
 
         lblMinimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblMinimize.setForeground(new java.awt.Color(0, 98, 206));
@@ -115,45 +125,57 @@ public class CreateSport extends javax.swing.JFrame {
                 lblMinimizeMousePressed(evt);
             }
         });
-        jplUtilCriar.add(lblMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 32, 32));
+        jplUtilCriar.add(lblMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 32, 32));
 
-        lblModCriar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblModCriar.setForeground(new java.awt.Color(0, 98, 206));
-        lblModCriar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblModCriar.setText("CRIAR MODALIDADE");
-        jplUtilCriar.add(lblModCriar, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 0, 290, 30));
+        lblModEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModEditar.setForeground(new java.awt.Color(0, 98, 206));
+        lblModEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModEditar.setText("EDITAR MODALIDADE");
+        jplUtilCriar.add(lblModEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 0, 290, 30));
         jplUtilCriar.add(txtModNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 290, 26));
+
+        btnModCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnModCancelar.setForeground(new java.awt.Color(0, 98, 206));
+        btnModCancelar.setText("Cancelar");
+        btnModCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModCancelarActionPerformed(evt);
+            }
+        });
+        jplUtilCriar.add(btnModCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 93, 40));
+
+        lblModEstado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModEstado.setForeground(new java.awt.Color(0, 98, 206));
+        lblModEstado.setText("Ativo:");
+        jplUtilCriar.add(lblModEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 66, 25));
+
+        checkModEstado.setBackground(new java.awt.Color(255, 255, 255));
+        jplUtilCriar.add(checkModEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jplUtilCriar, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+            .addComponent(jplUtilCriar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jplUtilCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jplUtilCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnModCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModCriarActionPerformed
-        if (txtModNome.getText().isEmpty() || txtModResponsavel.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Os dados da modalidade não podem ser vazios. \nInsira um nome e um responsável.", "Criar Modalidade", JOptionPane.ERROR_MESSAGE);
+    private void btnModValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModValidarActionPerformed
+        boolean ativo = true;
+        boolean modalidadeEditada = modalidadeController.editarModalidade(txtModNome.getText(), txtModResponsavel.getText(), ativo, username);
+        if (!modalidadeEditada) {
+            JOptionPane.showMessageDialog(null, "Modalidade já existe.\n Insira outros dados.", "Modalidade", JOptionPane.ERROR_MESSAGE);
         } else {
-            boolean modcriada = modalidadeController.criarModalidade(txtModNome.getText(), txtModResponsavel.getText(), true, username);
-            if (modcriada) {
-                JOptionPane.showMessageDialog(null, "Modalidade criada com sucesso.", "Modalidade", JOptionPane.INFORMATION_MESSAGE);
-                txtModNome.setText("");
-                txtModResponsavel.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "Modalidade já existe.\n Insira outro nome de modalidade.", "Modalidade", JOptionPane.ERROR_MESSAGE);
-                txtModNome.setText("");
-                txtModResponsavel.setText("");
-            }
+            JOptionPane.showMessageDialog(null, "Modalidade editada com sucesso.", "Modalidade", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         }
-    }//GEN-LAST:event_btnModCriarActionPerformed
+    }//GEN-LAST:event_btnModValidarActionPerformed
 
     private void lblMinimizeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMousePressed
         setState(JFrame.ICONIFIED);
@@ -162,7 +184,7 @@ public class CreateSport extends javax.swing.JFrame {
     private void lblCloseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMousePressed
         int selectedOption = JOptionPane.showOptionDialog(this,
                 "Deseja mesmo sair?",
-                "Criar Modalidade",
+                "Criar sócio",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -175,15 +197,28 @@ public class CreateSport extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblCloseMousePressed
 
+    private void btnModCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnModCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnModCriar;
+    private javax.swing.JButton btnModCancelar;
+    private javax.swing.JButton btnModValidar;
+    private javax.swing.JCheckBox checkModEstado;
     private javax.swing.JPanel jplUtilCriar;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblMinimize;
-    private javax.swing.JLabel lblModCriar;
+    private javax.swing.JLabel lblModEditar;
+    private javax.swing.JLabel lblModEstado;
     private javax.swing.JLabel lblModNome;
     private javax.swing.JLabel lblModResponsavel;
     private javax.swing.JTextField txtModNome;
     private javax.swing.JTextField txtModResponsavel;
     // End of variables declaration//GEN-END:variables
+
+    private void setDados() {
+        txtModNome.setText(modalidade.getNome());
+        txtModResponsavel.setText(modalidade.getResponsavel());
+        checkModEstado.setSelected(modalidade.getEstado());
+    }
 }
