@@ -21,6 +21,7 @@ public class ReflectUtils {
      * Returns an Map of attribute -> value from an object.
      * 
      * @param dataObj
+     * 
      * @return 
      */
     public Map<String, Object> getValues(Object dataObj) {
@@ -41,7 +42,7 @@ public class ReflectUtils {
                 | InvocationTargetException ex) {
             Logger.getLogger(
                     ReflectUtils.class.getName()
-            ).log(Level.SEVERE, null, ex);
+            ).log(Level.INFO, Constants.File.ERROR_PARSING_FILE);
 
             return new HashMap<>(0);
         }

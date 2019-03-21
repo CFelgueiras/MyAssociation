@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 public class ConnectDB {
 
     private static final String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static final String CONNECTIONURL = "jdbc:sqlserver://localhost:1433;" +  
-   "databaseName=MYASSOCIATION;user=sa;password=Myassociation2018;";  
+    private static final String CONNECTIONURL = "jdbc:sqlserver:mssql.lastsoftware.pt\\MSSQLSERVER2017:1433;" +  
+   "databaseName=lastsoftware;user=sa;password=00;";  
     private static Connection conexao;
 
     /**
