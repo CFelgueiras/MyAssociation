@@ -16,6 +16,7 @@ public class User {
 
     private String nome;
     private String senha;
+    private String salt;
     private Date datacriacao;
 
     public User() {
@@ -30,7 +31,14 @@ public class User {
         this.nome = nome;
     }
 
+    public String getSalt() {
+        return salt;
+    }
 
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+    
     public String getNome() {
         return nome;
     }

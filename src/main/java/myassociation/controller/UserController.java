@@ -26,7 +26,7 @@ public class UserController {
     }
 
     public boolean pesquisaLogin(String nome, String senha) {
-        return utilizadorDAO.pesquisaLogin(nome, senha);
+        return utilizadorDAO.doLogin(nome, senha);
     }
     
     public boolean pesquisaUtilizador(String nome){

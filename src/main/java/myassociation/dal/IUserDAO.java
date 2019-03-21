@@ -14,7 +14,7 @@ import myassociation.model.User;
  */
 public interface IUserDAO {
     
-    public boolean pesquisaLogin(String nome, String senha);
+    public boolean doLogin(String nome, String senha);
     
     public boolean pesquisaUtilizador(String nome);
     

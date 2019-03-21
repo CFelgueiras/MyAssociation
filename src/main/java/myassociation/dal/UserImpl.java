@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import myassociation.dto.EncryptResDTO;
 import myassociation.model.User;
 
 /**
@@ -23,27 +24,46 @@ public class UserImpl implements IUserDAO {
     AssociationImpl associacaoimpl = new AssociationImpl();
 
     @Override
-    public boolean pesquisaLogin(String nome, String senha) {
-        boolean loginEncontrado = false;
+    public boolean doLogin(String username, String password) {
         try {
-            String query = "SELECT utilizador,senha FROM UTILIZADOR WHERE utilizador = ? AND senha = ?";
-            PreparedStatement login = ConnectDB.conexaoBD().prepareStatement(query);
-            login.setString(1, nome);
-            login.setString(2, EncryptUtils.encrypt(senha));//
-            ResultSet resultLogin = login.executeQuery();
-
-            if (resultLogin.next()) {
-                User utilizador = new User();
-                utilizador.setNome(resultLogin.getString("utilizador"));
-                utilizador.setSenha(resultLogin.getString("senha"));
-                loginEncontrado = true;
+            User utilizador = new User();
+            PreparedStatement handler;
+            ResultSet result;
+            String query = ""
+                    + "SELECT *"
+                    + "  FROM UTILIZADOR"
+                    + " WHERE UTILIZADOR = ?";
+            handler = ConnectDB.conexaoBD()
+                    .prepareStatement(query);
+            handler.setString(1, username);
+            result = handler.executeQuery();
+            if (result.next()) {
+                utilizador.setNome(result.getString("utilizador"));
+                utilizador.setSalt(result.getString("salt"));
             }
-        } catch (SQLException ex) {
-            ex.getMessage();
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            String loginQuery = ""
+                    + "SELECT * "
+                    + "  FROM UTILIZADOR "
+                    + " WHERE UTILIZADOR = ?"
+                    + " AND SENHA = ? ";
+            handler = ConnectDB.conexaoBD()
+                    .prepareStatement(loginQuery);
+            String cryptPass = EncryptUtils.getEncyptionWithSalt(
+                    password, utilizador.getSalt()
+            );
+            handler.setString(1, username);
+            handler.setString(2, cryptPass);
+            result = handler.executeQuery();
+            if (result.next()) {
+                
+                return true;
+            }
+        } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
             Logger.getLogger(
                     UserImpl.class.getName()
             ).log(Level.SEVERE, null, ex);
+            
+            return false;
         } finally {
             try {
                 ConnectDB.desconexaoBD();
@@ -51,7 +71,7 @@ public class UserImpl implements IUserDAO {
                 Logger.getLogger(UserImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return loginEncontrado;
+        return false;
     }
 
     @Override
@@ -86,12 +106,11 @@ public class UserImpl implements IUserDAO {
         Calendar calendar = Calendar.getInstance();
         java.sql.Date date = new java.sql.Date(calendar.getTimeInMillis());
 
-        int idassociacao = 1;
         int idgrupoutilizador = obterIdGrupoUtilizadorbyNome(grupo);
 
         try {
 
-            boolean utiljaexiste = pesquisaLogin(utilizador, senha);
+            boolean utiljaexiste = doLogin(utilizador, senha);
 
             if (!utiljaexiste) {
                 String query = "INSERT INTO"
@@ -100,18 +119,18 @@ public class UserImpl implements IUserDAO {
                         + "             senha,"
                         + "             datacriacao,"
                         + "             datamodificacao,"
-                        + "             IDGRUPOUTILIZADOR"
-                        + "             "
-                        + ") VALUES (?,?,?,?,?)";
+                        + "             IDGRUPOUTILIZADOR,"
+                        + "             salt"
+                        + ") VALUES (?,?,?,?,?,?)";
                 PreparedStatement criarutil = ConnectDB.conexaoBD()
                         .prepareStatement(query);
-                System.out.println(query);
+                EncryptResDTO hashPass = EncryptUtils.encrypt(senha);
                 criarutil.setString(1, utilizador);
-                criarutil.setString(2, EncryptUtils.encrypt(senha));
+                criarutil.setString(2, hashPass.hash);
                 criarutil.setDate(3, date);
                 criarutil.setDate(4, date);
                 criarutil.setInt(5, idgrupoutilizador);
-                //criarutil.setInt(6, idassociacao);
+                criarutil.setString(6, hashPass.salt);
                 criarutil.executeUpdate();
 
                 utilcriado = true;
