@@ -20,5 +20,7 @@ public interface ISportDAO {
 
     public ArrayList<Sport> listarModalidades(String dado, String pesquisa, boolean ativo);
 
-    public boolean editarModalidade(String nome, String responsavel, boolean ativo, String username);
+    public boolean editarModalidade(String nomeAntigo, String novoNome, String responsavel, boolean ativo, String username);
+
+    public int getModalidadeIdByNome(String nome);
 }

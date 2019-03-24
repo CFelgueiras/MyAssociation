@@ -16,6 +16,7 @@ import myassociation.model.Sport;
 public class SportController {
 
     SportImpl sportDAO = new SportImpl();
+    Sport modalidade = new Sport();
 
     public boolean criarModalidade(String nome, String responsavel, boolean estado, String username) {
         return sportDAO.criarModalidade(nome, responsavel, estado, username);
@@ -29,8 +30,12 @@ public class SportController {
         return sportDAO.listarModalidades(dado, pesquisa, ativo);
     }
 
-    public boolean editarModalidade(String nome, String responsavel, boolean ativo, String username) {
-        return sportDAO.editarModalidade(nome, responsavel, ativo, username);
+    public boolean editarModalidade(String nomeAntigo, String novoNome, String responsavel, boolean ativo, String username) {
+        return sportDAO.editarModalidade(nomeAntigo, novoNome, responsavel, ativo, username);
+    }
+
+    public String getNomeModalidade() {
+        return modalidade.getNome();
     }
 
 }

@@ -166,7 +166,7 @@ public class AssociationSettings extends javax.swing.JFrame {
                 btnGeneralSaveActionPerformed(evt);
             }
         });
-        jplGeneralSettings.add(btnGeneralSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 93, 40));
+        jplGeneralSettings.add(btnGeneralSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, 93, 40));
 
         jplSettingsLogo.setBackground(new java.awt.Color(246, 246, 246));
         jplSettingsLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -323,7 +323,7 @@ public class AssociationSettings extends javax.swing.JFrame {
 
         jtabbedAssocSettings.addTab("Associação", jplAssociationSettings);
 
-        jplMainSettings.add(jtabbedAssocSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 750, 510));
+        jplMainSettings.add(jtabbedAssocSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 740, 500));
 
         getContentPane().add(jplMainSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 540));
 

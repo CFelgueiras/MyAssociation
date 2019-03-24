@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import myassociation.controller.SportController;
 import myassociation.model.Sport;
 
 /**
@@ -21,6 +22,7 @@ import myassociation.model.Sport;
 public class SportImpl implements ISportDAO {
 
     private UserImpl userimpl = new UserImpl();
+//    private SportController modalidadeController = new SportController();
 
     /**
      *
@@ -106,29 +108,54 @@ public class SportImpl implements ISportDAO {
     }
 
     @Override
-    public boolean editarModalidade(String nome, String responsavel, boolean ativo, String username) {
+    public boolean editarModalidade(String nomeAntigo, String novoNome, String responsavel, boolean ativo, String username) {
         boolean modalidadeEditada = false;
         int idutilizador = userimpl.obterIdUtilizadorbyNome(username);
+        int idmodalidade = getModalidadeIdByNome(nomeAntigo);
 
+        System.out.println("nome antigo: " + nomeAntigo);
+        System.out.println("nome novo: " + novoNome);
+        System.out.println(responsavel);
+        System.out.println(ativo);
+        System.out.println(idutilizador);
+        System.out.println("id " + idmodalidade);
         try {
             String query = "UPDATE MODALIDADE SET nome=?, responsavel=?, ativa=?,"
-                    + " datamodificacao=current_timestamp, idutilizador=? "
-                    + "WHERE nome = ?";
+                    + "datamodificacao=current_timestamp, idutilizador=? "
+                    + " WHERE idmodalidade = ?";
             PreparedStatement modalidade = ConnectDB.conexaoBD().prepareStatement(query);
-
-            modalidade.setString(1, nome);
+            modalidade.setString(1, novoNome);
             modalidade.setString(2, responsavel);
             modalidade.setBoolean(3, ativo);
             modalidade.setInt(4, idutilizador);
-            modalidade.setString(5, nome);
+            modalidade.setInt(5, idmodalidade);
 
             modalidade.executeUpdate();
             modalidadeEditada = true;
 
         } catch (SQLException ex) {
+            System.out.println(ex);
             Logger.getLogger(SportImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return modalidadeEditada;
+    }
+
+    @Override
+    public int getModalidadeIdByNome(String nome) {
+        int idmodalidade = 0;
+
+        try {
+            Statement modalidadeid = ConnectDB.conexaoBD().createStatement();
+            String query = "SELECT idmodalidade FROM MODALIDADE WHERE NOME = '" + nome + "'";
+            ResultSet rs = modalidadeid.executeQuery(query);
+
+            while (rs.next()) {
+                idmodalidade = rs.getInt("idmodalidade");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SportImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idmodalidade;
     }
 }

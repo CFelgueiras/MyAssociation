@@ -168,7 +168,9 @@ public class EditSport extends javax.swing.JFrame {
 
     private void btnModValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModValidarActionPerformed
         boolean ativo = true;
-        boolean modalidadeEditada = modalidadeController.editarModalidade(txtModNome.getText(), txtModResponsavel.getText(), ativo, username);
+        System.out.println(modalidade.getNome());
+        boolean modalidadeEditada = modalidadeController.editarModalidade(modalidade.getNome(), txtModNome.getText(), txtModResponsavel.getText(), ativo, username);
+        System.out.println(modalidadeEditada);
         if (!modalidadeEditada) {
             JOptionPane.showMessageDialog(null, "Modalidade já existe.\n Insira outros dados.", "Modalidade", JOptionPane.ERROR_MESSAGE);
         } else {
