@@ -12,7 +12,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import myassociation.controller.SportController;
 import myassociation.model.Sport;
 
 /**
@@ -22,7 +21,6 @@ import myassociation.model.Sport;
 public class SportImpl implements ISportDAO {
 
     private UserImpl userimpl = new UserImpl();
-//    private SportController modalidadeController = new SportController();
 
     /**
      *
@@ -113,12 +111,6 @@ public class SportImpl implements ISportDAO {
         int idutilizador = userimpl.obterIdUtilizadorbyNome(username);
         int idmodalidade = getModalidadeIdByNome(nomeAntigo);
 
-        System.out.println("nome antigo: " + nomeAntigo);
-        System.out.println("nome novo: " + novoNome);
-        System.out.println(responsavel);
-        System.out.println(ativo);
-        System.out.println(idutilizador);
-        System.out.println("id " + idmodalidade);
         try {
             String query = "UPDATE MODALIDADE SET nome=?, responsavel=?, ativa=?,"
                     + "datamodificacao=current_timestamp, idutilizador=? "
@@ -139,6 +131,25 @@ public class SportImpl implements ISportDAO {
         }
 
         return modalidadeEditada;
+    }
+
+    @Override
+    public boolean inativarModalidade(String nome) {
+        boolean modalidadedesativado = false;
+        try {
+            String query = "UPDATE MODALIDADE SET ativa = ?, datamodificacao = current_timestamp WHERE nome = ?";
+            PreparedStatement modalidade = ConnectDB.conexaoBD().prepareStatement(query);
+
+            modalidade.setBoolean(1, false);
+            modalidade.setString(2, nome);
+
+            modalidade.executeUpdate();
+            modalidadedesativado = true;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return modalidadedesativado;
     }
 
     @Override

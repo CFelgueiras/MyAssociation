@@ -1298,7 +1298,28 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_lblModBtnAlterarModalidadeMousePressed
 
     private void lblModBtnInativardBtnInativarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnInativardBtnInativarModalidadeMousePressed
-        // TODO add your handling code here:
+               try {
+            Object modalidade = tblModalidades.getValueAt(tblModalidades.getSelectedRow(), 0);
+            String nome = modalidade.toString();
+            int selectedOption = JOptionPane.showOptionDialog(this,
+                    "Desenha mesmo inativar a modalidade seleccionada?",
+                    "Inativar modalidade",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    joptionpaneoptions,
+                    joptionpaneoptions[1]);
+            if (selectedOption == JOptionPane.YES_OPTION) {
+                boolean retorno = modalidadeController.inativarModalidade(nome);
+                if (retorno == true) {
+                    JOptionPane.showMessageDialog(this, "Modalidade " + nome + " inativada com sucesso.", "Inativar modalidade", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Inativação impossível.", "Inativar modalidade", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(this, "Nenhuma modalidade seleccionada para inativação. \nEfetue uma pesquisa primeiro.", "Impossivel inativar", JOptionPane.INFORMATION_MESSAGE);
+        } 
     }//GEN-LAST:event_lblModBtnInativardBtnInativarModalidadeMousePressed
 
     private void lblModBtnVisualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnVisualizarMousePressed

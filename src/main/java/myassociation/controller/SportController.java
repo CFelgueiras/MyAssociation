@@ -34,6 +34,10 @@ public class SportController {
         return sportDAO.editarModalidade(nomeAntigo, novoNome, responsavel, ativo, username);
     }
 
+    public boolean inativarModalidade(String nome){
+        return sportDAO.inativarModalidade(nome);
+    }
+    
     public String getNomeModalidade() {
         return modalidade.getNome();
     }
