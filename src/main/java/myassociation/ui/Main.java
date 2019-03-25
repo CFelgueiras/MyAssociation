@@ -6,15 +6,26 @@
 package myassociation.ui;
 
 import java.awt.CardLayout;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import myassociation.controller.AssociationController;
 import myassociation.controller.MemberController;
 import myassociation.controller.SportController;
@@ -36,11 +47,14 @@ public class Main extends javax.swing.JFrame {
     private UserController utilizadorController;
     private MemberController socioController;
     private SportController modalidadeController;
+    private Association associacao;
     private javax.swing.table.DefaultTableModel tabelasocios = new javax.swing.table.DefaultTableModel(new String[]{"Numero", "NIF", "Nome", "Telefone", "Telemovel", "Morada", "Email", "Data criação", "Data modificação", "Utilizador", "Categoria"}, 0);
     private javax.swing.table.DefaultTableModel tableusers = new javax.swing.table.DefaultTableModel(new String[]{"Utilizador", "Data criação", "Data modificacao", "Grupo"}, 0);
     private javax.swing.table.DefaultTableModel tabelaModalidades = new javax.swing.table.DefaultTableModel(new String[]{"Nome", "Responsável", "Data criação", "Data modificação", "Utilizador"}, 0);
     private final Object[] joptionpaneoptions = {"Sim", "Não"};
     private Point initialClick;
+    private File ficheiro;
+    private BufferedImage logo;
     private String username;
 
     /**
@@ -55,7 +69,10 @@ public class Main extends javax.swing.JFrame {
         utilizadorController = new UserController();
         socioController = new MemberController();
         modalidadeController = new SportController();
+        associacao = assocController.obterAssociacao();
         setAssociationName();
+        setDadosAssociacao();
+        logo = createImageFromBytes(associacao.getLogotipo());
         this.username = username;
         lblusername.setText(username);
         txtHomeTotalSocios.setText(socioController.totalSociosAtivos());
@@ -109,6 +126,9 @@ public class Main extends javax.swing.JFrame {
         jplListagens = new javax.swing.JPanel();
         lblBotaoListagens = new javax.swing.JLabel();
         lblListagensDescricao = new javax.swing.JLabel();
+        jplParametros = new javax.swing.JPanel();
+        lblBotaoParametros = new javax.swing.JLabel();
+        lblParametrosDescricao = new javax.swing.JLabel();
         jplCardBase = new javax.swing.JPanel();
         jplCardHome = new javax.swing.JPanel();
         lblSociosTitulo = new javax.swing.JLabel();
@@ -133,6 +153,8 @@ public class Main extends javax.swing.JFrame {
         lblSocApagar = new javax.swing.JLabel();
         lblSocBtnCategoria = new javax.swing.JLabel();
         lblSocCategoria = new javax.swing.JLabel();
+        lblSocBtnModalidade = new javax.swing.JLabel();
+        lblSocModalidade = new javax.swing.JLabel();
         jplSocTabela = new javax.swing.JPanel();
         lblSocPesquisar = new javax.swing.JLabel();
         jcbSocPesquisar = new javax.swing.JComboBox<>();
@@ -186,7 +208,7 @@ public class Main extends javax.swing.JFrame {
         lblModBtnInativar = new javax.swing.JLabel();
         lblModInativar = new javax.swing.JLabel();
         lblModBtnVisualizar = new javax.swing.JLabel();
-        lblModCartao = new javax.swing.JLabel();
+        lblModVisualizar = new javax.swing.JLabel();
         jplModTabela = new javax.swing.JPanel();
         lblModPesquisar = new javax.swing.JLabel();
         txtModPesquisar = new javax.swing.JTextField();
@@ -195,6 +217,53 @@ public class Main extends javax.swing.JFrame {
         lblModValidar = new javax.swing.JLabel();
         btnRadioModInativas = new javax.swing.JRadioButton();
         jcbModPesquisar = new javax.swing.JComboBox<>();
+        jplCardParametros = new javax.swing.JPanel();
+        jplParametrosBarraFerramentas = new javax.swing.JPanel();
+        lblParamBtnAssociacao = new javax.swing.JLabel();
+        lblParametros = new javax.swing.JLabel();
+        lblParamAssociacao = new javax.swing.JLabel();
+        lblParamBtnPagamentos = new javax.swing.JLabel();
+        lblParamPagamentos = new javax.swing.JLabel();
+        lblModBtnInativar1 = new javax.swing.JLabel();
+        lblModInativar1 = new javax.swing.JLabel();
+        lblModBtnVisualizar1 = new javax.swing.JLabel();
+        lblModVisualizar1 = new javax.swing.JLabel();
+        jplParametrosCards = new javax.swing.JPanel();
+        jplCardParametrosBase = new javax.swing.JPanel();
+        jplAssociationSettings = new javax.swing.JPanel();
+        txtAssocEmail = new javax.swing.JTextField();
+        lblAssocName = new javax.swing.JLabel();
+        lblAssocLogo = new javax.swing.JLabel();
+        btnAssocLogo = new javax.swing.JButton();
+        btnAssocSave = new javax.swing.JButton();
+        lblAssocEmail = new javax.swing.JLabel();
+        lblAssocNIF = new javax.swing.JLabel();
+        lblAssocPresidente = new javax.swing.JLabel();
+        lblAssocSecretario = new javax.swing.JLabel();
+        lblAssocTesoureiro = new javax.swing.JLabel();
+        lblAssocVogal1 = new javax.swing.JLabel();
+        lblAssocVogal2 = new javax.swing.JLabel();
+        lblAssocVogal3 = new javax.swing.JLabel();
+        lblAssocVogal5 = new javax.swing.JLabel();
+        lblAssocVogal4 = new javax.swing.JLabel();
+        txtAssocName = new javax.swing.JTextField();
+        txtAssocNIF = new javax.swing.JTextField();
+        txtAssocPresidente = new javax.swing.JTextField();
+        txtAssocSecretario = new javax.swing.JTextField();
+        txtAssocName6 = new javax.swing.JTextField();
+        txtAssocTesoureiro = new javax.swing.JTextField();
+        txtAssocVogal1 = new javax.swing.JTextField();
+        txtAssocVogal2 = new javax.swing.JTextField();
+        txtAssocVogal3 = new javax.swing.JTextField();
+        txtAssocVogal4 = new javax.swing.JTextField();
+        txtAssocVogal5 = new javax.swing.JTextField();
+        lblAssocMorada = new javax.swing.JLabel();
+        lblAssocTelefone = new javax.swing.JLabel();
+        lblAssocTelemovel = new javax.swing.JLabel();
+        txtAssocMorada = new javax.swing.JTextField();
+        txtAssocTelefone = new javax.swing.JTextField();
+        txtAssocTelemovel = new javax.swing.JTextField();
+        jplPagamentos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -376,7 +445,7 @@ public class Main extends javax.swing.JFrame {
         lblSociosDescricao.setText("SÓCIOS");
         jplSocios.add(lblSociosDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 69, 100, -1));
 
-        jplSideBar.add(jplSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, -1));
+        jplSideBar.add(jplSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, 90));
 
         jplQuotas.setBackground(new java.awt.Color(255, 255, 255));
         jplQuotas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -397,7 +466,7 @@ public class Main extends javax.swing.JFrame {
         lblQuotasDescricao.setText("QUOTAS");
         jplQuotas.add(lblQuotasDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 67, 53, -1));
 
-        jplSideBar.add(jplQuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 100, -1));
+        jplSideBar.add(jplQuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 100, 90));
 
         jplModalidades.setBackground(new java.awt.Color(255, 255, 255));
         jplModalidades.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -438,7 +507,51 @@ public class Main extends javax.swing.JFrame {
         lblListagensDescricao.setText("LISTAGENS");
         jplListagens.add(lblListagensDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 100, -1));
 
-        jplSideBar.add(jplListagens, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 100, 90));
+        jplSideBar.add(jplListagens, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 100, 90));
+
+        jplParametros.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblBotaoParametros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Menu_Parametros_64px.png"))); // NOI18N
+        lblBotaoParametros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblBotaoParametros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblBotaoParametrosMousePressed(evt);
+            }
+        });
+
+        lblParametrosDescricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblParametrosDescricao.setForeground(new java.awt.Color(45, 118, 232));
+        lblParametrosDescricao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblParametrosDescricao.setText("PARÂMETROS");
+
+        javax.swing.GroupLayout jplParametrosLayout = new javax.swing.GroupLayout(jplParametros);
+        jplParametros.setLayout(jplParametrosLayout);
+        jplParametrosLayout.setHorizontalGroup(
+            jplParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jplParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jplParametrosLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jplParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jplParametrosLayout.createSequentialGroup()
+                            .addGap(19, 19, 19)
+                            .addComponent(lblBotaoParametros))
+                        .addComponent(lblParametrosDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jplParametrosLayout.setVerticalGroup(
+            jplParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 90, Short.MAX_VALUE)
+            .addGroup(jplParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jplParametrosLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(lblBotaoParametros, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(4, 4, 4)
+                    .addComponent(lblParametrosDescricao)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jplSideBar.add(jplParametros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, 100, 90));
 
         jplCardBase.setBackground(new java.awt.Color(255, 255, 255));
         jplCardBase.setLayout(new java.awt.CardLayout());
@@ -592,6 +705,20 @@ public class Main extends javax.swing.JFrame {
         lblSocCategoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSocCategoria.setText("Categoria");
         jplSocBarraFerramentas.add(lblSocCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 70, 60, -1));
+
+        lblSocBtnModalidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSocBtnModalidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Socios_Modalidade_50px.png"))); // NOI18N
+        lblSocBtnModalidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblSocBtnModalidadeMousePressed(evt);
+            }
+        });
+        jplSocBarraFerramentas.add(lblSocBtnModalidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 54, 52));
+
+        lblSocModalidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblSocModalidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSocModalidade.setText("Modalidade");
+        jplSocBarraFerramentas.add(lblSocModalidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(495, 70, 70, -1));
 
         jplCardSocios.add(jplSocBarraFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1194, -1));
 
@@ -821,6 +948,11 @@ public class Main extends javax.swing.JFrame {
         jplUtilBarraFerramentas.add(lblUtilNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 54, 20));
 
         lblUtilBtnAlterarUtil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Socios_Editar_50px.png"))); // NOI18N
+        lblUtilBtnAlterarUtil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblUtilBtnAlterarUtilMousePressed(evt);
+            }
+        });
         jplUtilBarraFerramentas.add(lblUtilBtnAlterarUtil, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 54, 52));
 
         lblUtilEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -926,10 +1058,10 @@ public class Main extends javax.swing.JFrame {
         });
         jplModBarraFerramentas.add(lblModBtnVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 54, 52));
 
-        lblModCartao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblModCartao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblModCartao.setText("Visualizar");
-        jplModBarraFerramentas.add(lblModCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 56, -1));
+        lblModVisualizar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModVisualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModVisualizar.setText("Visualizar");
+        jplModBarraFerramentas.add(lblModVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 56, -1));
 
         jplCardModalidades.add(jplModBarraFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1194, -1));
 
@@ -984,6 +1116,239 @@ public class Main extends javax.swing.JFrame {
 
         jplCardBase.add(jplCardModalidades, "jplCardEstatisticas");
 
+        jplCardParametros.setBackground(new java.awt.Color(246, 246, 246));
+
+        jplParametrosBarraFerramentas.setBackground(new java.awt.Color(246, 246, 246));
+        jplParametrosBarraFerramentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jplParametrosBarraFerramentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblParamBtnAssociacao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblParamBtnAssociacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Parametros_Associacao_50px.png"))); // NOI18N
+        lblParamBtnAssociacao.setPreferredSize(new java.awt.Dimension(40, 40));
+        lblParamBtnAssociacao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblParamBtnAssociacaoMousePressed(evt);
+            }
+        });
+        jplParametrosBarraFerramentas.add(lblParamBtnAssociacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 20, 60, 52));
+
+        lblParametros.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblParametros.setForeground(new java.awt.Color(0, 98, 206));
+        lblParametros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblParametros.setText("PARAMETROS");
+        lblParametros.setToolTipText("");
+        jplParametrosBarraFerramentas.add(lblParametros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, -1));
+
+        lblParamAssociacao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblParamAssociacao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblParamAssociacao.setText("Associação");
+        jplParametrosBarraFerramentas.add(lblParamAssociacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        lblParamAssociacao.getAccessibleContext().setAccessibleName("");
+        lblParamAssociacao.getAccessibleContext().setAccessibleDescription("");
+
+        lblParamBtnPagamentos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblParamBtnPagamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Parametros_Pagamentos_50px.png"))); // NOI18N
+        lblParamBtnPagamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblParamBtnPagamentosMousePressed(evt);
+            }
+        });
+        jplParametrosBarraFerramentas.add(lblParamBtnPagamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 60, 52));
+
+        lblParamPagamentos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblParamPagamentos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblParamPagamentos.setText("Pagamentos");
+        jplParametrosBarraFerramentas.add(lblParamPagamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 80, -1));
+
+        lblModBtnInativar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModBtnInativar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Modalidades_Inativar_50px.png"))); // NOI18N
+        lblModBtnInativar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblModBtnInativar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblModBtnInativar1dBtnInativarModalidadeMousePressed(evt);
+            }
+        });
+        jplParametrosBarraFerramentas.add(lblModBtnInativar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, 52));
+
+        lblModInativar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModInativar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModInativar1.setText("TO DO");
+        jplParametrosBarraFerramentas.add(lblModInativar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 50, -1));
+
+        lblModBtnVisualizar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModBtnVisualizar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Modalidades_Visualizar_50px.png"))); // NOI18N
+        lblModBtnVisualizar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblModBtnVisualizar1MousePressed(evt);
+            }
+        });
+        jplParametrosBarraFerramentas.add(lblModBtnVisualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 54, 52));
+
+        lblModVisualizar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModVisualizar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModVisualizar1.setText("TO DO");
+        jplParametrosBarraFerramentas.add(lblModVisualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 56, -1));
+
+        jplParametrosCards.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout jplCardParametrosBaseLayout = new javax.swing.GroupLayout(jplCardParametrosBase);
+        jplCardParametrosBase.setLayout(jplCardParametrosBaseLayout);
+        jplCardParametrosBaseLayout.setHorizontalGroup(
+            jplCardParametrosBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1190, Short.MAX_VALUE)
+        );
+        jplCardParametrosBaseLayout.setVerticalGroup(
+            jplCardParametrosBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+        );
+
+        jplParametrosCards.add(jplCardParametrosBase, "card3");
+
+        jplAssociationSettings.setBackground(new java.awt.Color(246, 246, 246));
+        jplAssociationSettings.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jplAssociationSettings.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jplAssociationSettings.add(txtAssocEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 420, 26));
+
+        lblAssocName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocName.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocName.setText("Nome da Associação:");
+        jplAssociationSettings.add(lblAssocName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 26));
+
+        lblAssocLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAssocLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jplAssociationSettings.add(lblAssocLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 10, 130, 110));
+
+        btnAssocLogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAssocLogo.setForeground(new java.awt.Color(0, 98, 206));
+        btnAssocLogo.setLabel("Logótipo");
+        btnAssocLogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssocLogoActionPerformed(evt);
+            }
+        });
+        jplAssociationSettings.add(btnAssocLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 130, 30));
+
+        btnAssocSave.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnAssocSave.setForeground(new java.awt.Color(0, 98, 206));
+        btnAssocSave.setText("Guardar");
+        btnAssocSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssocSaveActionPerformed(evt);
+            }
+        });
+        jplAssociationSettings.add(btnAssocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 570, 93, 40));
+
+        lblAssocEmail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocEmail.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocEmail.setText("Email:");
+        jplAssociationSettings.add(lblAssocEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 140, 26));
+
+        lblAssocNIF.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocNIF.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocNIF.setText("NIF:");
+        jplAssociationSettings.add(lblAssocNIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, 26));
+
+        lblAssocPresidente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocPresidente.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocPresidente.setText("Presidente:");
+        jplAssociationSettings.add(lblAssocPresidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 140, 26));
+
+        lblAssocSecretario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocSecretario.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocSecretario.setText("Secretário:");
+        jplAssociationSettings.add(lblAssocSecretario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 140, 26));
+
+        lblAssocTesoureiro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocTesoureiro.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocTesoureiro.setText("Tesoureiro:");
+        jplAssociationSettings.add(lblAssocTesoureiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, 26));
+
+        lblAssocVogal1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocVogal1.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocVogal1.setText("Vogal 1:");
+        jplAssociationSettings.add(lblAssocVogal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 140, 26));
+
+        lblAssocVogal2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocVogal2.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocVogal2.setText("Vogal 2:");
+        jplAssociationSettings.add(lblAssocVogal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 140, 26));
+
+        lblAssocVogal3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocVogal3.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocVogal3.setText("Vogal 3:");
+        jplAssociationSettings.add(lblAssocVogal3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 140, 26));
+
+        lblAssocVogal5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocVogal5.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocVogal5.setText("Vogal 5:");
+        jplAssociationSettings.add(lblAssocVogal5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 140, 26));
+
+        lblAssocVogal4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocVogal4.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocVogal4.setText("Vogal 4:");
+        jplAssociationSettings.add(lblAssocVogal4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, 26));
+        jplAssociationSettings.add(txtAssocName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 420, 26));
+        jplAssociationSettings.add(txtAssocNIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 420, 26));
+        jplAssociationSettings.add(txtAssocPresidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 420, 26));
+        jplAssociationSettings.add(txtAssocSecretario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 420, 26));
+        jplAssociationSettings.add(txtAssocName6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 420, 26));
+        jplAssociationSettings.add(txtAssocTesoureiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 420, 26));
+        jplAssociationSettings.add(txtAssocVogal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 420, 26));
+        jplAssociationSettings.add(txtAssocVogal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 420, 26));
+        jplAssociationSettings.add(txtAssocVogal3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 420, 26));
+        jplAssociationSettings.add(txtAssocVogal4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 420, 26));
+        jplAssociationSettings.add(txtAssocVogal5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 420, 26));
+
+        lblAssocMorada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocMorada.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocMorada.setText("Morada:");
+        jplAssociationSettings.add(lblAssocMorada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 140, 26));
+
+        lblAssocTelefone.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocTelefone.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocTelefone.setText("Telefone:");
+        jplAssociationSettings.add(lblAssocTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 140, 26));
+
+        lblAssocTelemovel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocTelemovel.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocTelemovel.setText("Telemóvel:");
+        jplAssociationSettings.add(lblAssocTelemovel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 140, 26));
+        jplAssociationSettings.add(txtAssocMorada, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 420, 26));
+        jplAssociationSettings.add(txtAssocTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 420, 26));
+        jplAssociationSettings.add(txtAssocTelemovel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 420, 26));
+
+        jplParametrosCards.add(jplAssociationSettings, "jplCardAssociationSettings");
+
+        javax.swing.GroupLayout jplPagamentosLayout = new javax.swing.GroupLayout(jplPagamentos);
+        jplPagamentos.setLayout(jplPagamentosLayout);
+        jplPagamentosLayout.setHorizontalGroup(
+            jplPagamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1190, Short.MAX_VALUE)
+        );
+        jplPagamentosLayout.setVerticalGroup(
+            jplPagamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+        );
+
+        jplParametrosCards.add(jplPagamentos, "jplCardPagamentos");
+
+        javax.swing.GroupLayout jplCardParametrosLayout = new javax.swing.GroupLayout(jplCardParametros);
+        jplCardParametros.setLayout(jplCardParametrosLayout);
+        jplCardParametrosLayout.setHorizontalGroup(
+            jplCardParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jplParametrosBarraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, 1194, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jplParametrosCards, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jplCardParametrosLayout.setVerticalGroup(
+            jplCardParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jplCardParametrosLayout.createSequentialGroup()
+                .addComponent(jplParametrosBarraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jplParametrosCards, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jplCardBase.add(jplCardParametros, "jplCardParametros");
+
         javax.swing.GroupLayout jplBaseLayout = new javax.swing.GroupLayout(jplBase);
         jplBase.setLayout(jplBaseLayout);
         jplBaseLayout.setHorizontalGroup(
@@ -1026,6 +1391,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(jplUtilizadores);
         resetColor(jplModalidades);
         resetColor(jplListagens);
+        resetColor(jplParametros);
     }//GEN-LAST:event_lblBotaoSociosMousePressed
 
     private void lblBotaoQuotasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoQuotasMousePressed
@@ -1036,6 +1402,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(jplUtilizadores);
         resetColor(jplModalidades);
         resetColor(jplListagens);
+        resetColor(jplParametros);
     }//GEN-LAST:event_lblBotaoQuotasMousePressed
 
     private void lblBotaoUtilizadoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoUtilizadoresMousePressed
@@ -1046,6 +1413,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(jplSocios);
         resetColor(jplModalidades);
         resetColor(jplListagens);
+        resetColor(jplParametros);
     }//GEN-LAST:event_lblBotaoUtilizadoresMousePressed
 
     private void lblBotaoListagensMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoListagensMousePressed
@@ -1057,6 +1425,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(jplCardQuotas);
         resetColor(jplUtilizadores);
         resetColor(jplModalidades);
+        resetColor(jplParametros);
     }//GEN-LAST:event_lblBotaoListagensMousePressed
 
     private void lblBotaoModalidadesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoModalidadesMousePressed
@@ -1068,7 +1437,7 @@ public class Main extends javax.swing.JFrame {
         resetColor(jplCardQuotas);
         resetColor(jplUtilizadores);
         resetColor(jplListagens);
-
+        resetColor(jplParametros);
     }//GEN-LAST:event_lblBotaoModalidadesMousePressed
 
     private void jplBaseMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jplBaseMouseDragged
@@ -1298,7 +1667,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_lblModBtnAlterarModalidadeMousePressed
 
     private void lblModBtnInativardBtnInativarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnInativardBtnInativarModalidadeMousePressed
-               try {
+        try {
             Object modalidade = tblModalidades.getValueAt(tblModalidades.getSelectedRow(), 0);
             String nome = modalidade.toString();
             int selectedOption = JOptionPane.showOptionDialog(this,
@@ -1319,12 +1688,8 @@ public class Main extends javax.swing.JFrame {
             }
         } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(this, "Nenhuma modalidade seleccionada para inativação. \nEfetue uma pesquisa primeiro.", "Impossivel inativar", JOptionPane.INFORMATION_MESSAGE);
-        } 
+        }
     }//GEN-LAST:event_lblModBtnInativardBtnInativarModalidadeMousePressed
-
-    private void lblModBtnVisualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnVisualizarMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblModBtnVisualizarMousePressed
 
     private void lblModValidarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModValidarMousePressed
         tabelaModalidades.setRowCount(0);
@@ -1340,6 +1705,96 @@ public class Main extends javax.swing.JFrame {
         tabelaModalidades.fireTableDataChanged();
     }//GEN-LAST:event_lblModValidarMousePressed
 
+    private void lblUtilBtnAlterarUtilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUtilBtnAlterarUtilMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUtilBtnAlterarUtilMousePressed
+
+    private void lblModBtnVisualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnVisualizarMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblModBtnVisualizarMousePressed
+
+    private void lblSocBtnModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSocBtnModalidadeMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblSocBtnModalidadeMousePressed
+
+    private void lblBotaoParametrosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoParametrosMousePressed
+        CardLayout card = (CardLayout) jplCardBase.getLayout();
+        card.show(jplCardBase, "jplCardParametros");
+        setColor(jplParametros);
+        resetColor(jplQuotas);
+        resetColor(jplSocios);
+        resetColor(jplCardQuotas);
+        resetColor(jplUtilizadores);
+        resetColor(jplModalidades);
+        resetColor(jplListagens);
+    }//GEN-LAST:event_lblBotaoParametrosMousePressed
+
+    private void lblParamBtnAssociacaoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblParamBtnAssociacaoMousePressed
+        CardLayout card = (CardLayout) jplParametrosCards.getLayout();
+        card.show(jplParametrosCards, "jplCardAssociationSettings");
+    }//GEN-LAST:event_lblParamBtnAssociacaoMousePressed
+
+    private void lblParamBtnPagamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblParamBtnPagamentosMousePressed
+        CardLayout card = (CardLayout) jplParametrosCards.getLayout();
+        card.show(jplParametrosCards, "jplCardPagamentos");
+    }//GEN-LAST:event_lblParamBtnPagamentosMousePressed
+
+    private void lblModBtnInativar1dBtnInativarModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnInativar1dBtnInativarModalidadeMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblModBtnInativar1dBtnInativarModalidadeMousePressed
+
+    private void lblModBtnVisualizar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnVisualizar1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblModBtnVisualizar1MousePressed
+
+    private void btnAssocLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssocLogoActionPerformed
+        try {
+            JFileChooser filechooser = new JFileChooser();
+            filechooser.setDialogTitle("Escolha a imagem");
+            FileFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "bmp", "png", "tif");
+            filechooser.setFileFilter(filter);
+            filechooser.setAcceptAllFileFilterUsed(false);
+            filechooser.showOpenDialog(this);
+            ficheiro = filechooser.getSelectedFile();
+            logo = ImageIO.read(ficheiro);
+            Image fotodim = logo.getScaledInstance(lblAssocLogo.getWidth(), lblAssocLogo.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon icone = new ImageIcon(fotodim);
+            lblAssocLogo.setIcon(icone);
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnAssocLogoActionPerformed
+
+    private void btnAssocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssocSaveActionPerformed
+
+        try {
+            byte[] logotipo = convertImagetoByte(logo);
+            int selectedOption = JOptionPane.showOptionDialog(this,
+                    "Deseja mesmo guardar as definições atuais?",
+                    "Guardar definições",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    joptionpaneoptions,
+                    joptionpaneoptions[1]);
+            if (selectedOption == JOptionPane.YES_OPTION) {
+                boolean associacaoeditada = assocController.editarAssociacao(txtAssocName.getText(), txtAssocNIF.getText(),
+                        txtAssocPresidente.getText(), txtAssocSecretario.getText(), txtAssocTesoureiro.getText(),
+                        txtAssocVogal1.getText(), txtAssocVogal2.getText(), txtAssocVogal3.getText(), txtAssocVogal4.getText(),
+                        txtAssocVogal5.getText(), txtAssocMorada.getText(), txtAssocTelefone.getText(), txtAssocTelemovel.getText(),
+                        txtAssocEmail.getText(), logotipo);
+                if (associacaoeditada) {
+                    JOptionPane.showMessageDialog(null, "Dados da associação alterados com sucesso", "Associação", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao realizar alteração.", "Associação", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (IOException ex) {
+            System.out.println(ex);
+            Logger.getLogger(AssociationSettings.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAssocSaveActionPerformed
+
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(196, 219, 255));
     }
@@ -1354,6 +1809,75 @@ public class Main extends javax.swing.JFrame {
             lblNomeAssociacao.setText(nomeAssociacao.getNome());
         } catch (NullPointerException ex) {
             System.out.println(ex.getMessage());
+        }
+    }
+
+    private void setDadosAssociacao() {
+        try {
+            txtAssocName.setText(associacao.getNome());
+            txtAssocNIF.setText(associacao.getNif());
+            txtAssocPresidente.setText(associacao.getPresidente());
+            txtAssocSecretario.setText(associacao.getSecretario());
+            txtAssocTesoureiro.setText(associacao.getTesoureiro());
+            txtAssocVogal1.setText(associacao.getVogal1());
+            txtAssocVogal2.setText(associacao.getVogal2());
+            txtAssocVogal3.setText(associacao.getVogal3());
+            txtAssocVogal4.setText(associacao.getVogal4());
+            txtAssocVogal5.setText(associacao.getVogal5());
+            txtAssocMorada.setText(associacao.getMorada());
+            txtAssocTelefone.setText(associacao.getTelefone());
+            txtAssocTelemovel.setText(associacao.getTelemovel());
+            txtAssocEmail.setText(associacao.getEmail());
+            lblAssocLogo.setIcon(convertBytetoIcon(associacao.getLogotipo()));
+        } catch (NullPointerException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    private byte[] convertImagetoByte(BufferedImage foto) throws IOException {
+        byte[] fotoinbytes;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (foto == null) {
+            fotoinbytes = new byte[0];
+        } else if (ficheiro == null) {
+            fotoinbytes = associacao.getLogotipo();
+        } else {
+            try {
+                foto = ImageIO.read(ficheiro);
+
+                ImageIO.write(foto, "jpg", baos);
+                baos.flush();
+                baos.toByteArray();
+            } catch (IOException ex) {
+                Logger.getLogger(EditMember.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            fotoinbytes = baos.toByteArray();;
+        }
+        return fotoinbytes;
+    }
+
+    private Icon convertBytetoIcon(byte[] fotografia) {
+        ImageIcon icone = null;
+        try {
+            byte[] byteArray = fotografia;
+            BufferedImage theImage = ImageIO.read(new ByteArrayInputStream(byteArray));
+            Image fotodim = theImage.getScaledInstance(lblAssocLogo.getWidth(), lblAssocLogo.getHeight(), Image.SCALE_SMOOTH);
+            icone = new ImageIcon(fotodim);
+
+        } catch (IOException ex) {
+            System.out.println(ex);
+        } catch (NullPointerException exep) {
+            System.out.println(exep);
+        }
+        return icone;
+    }
+
+    private BufferedImage createImageFromBytes(byte[] fotografia) {
+        ByteArrayInputStream bais = new ByteArrayInputStream(fotografia);
+        try {
+            return ImageIO.read(bais);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -1401,6 +1925,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAssocLogo;
+    private javax.swing.JButton btnAssocSave;
     private javax.swing.JRadioButton btnRadioModInativas;
     private javax.swing.JRadioButton btnRadioQuotasInativos;
     private javax.swing.JRadioButton btnRadioSocInativos;
@@ -1408,11 +1934,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcbQuotasPesquisar;
     private javax.swing.JComboBox<String> jcbSocPesquisar;
     private javax.swing.JComboBox<String> jcbUserSearch;
+    private javax.swing.JPanel jplAssociationSettings;
     private javax.swing.JPanel jplBase;
     private javax.swing.JPanel jplCardBase;
     private javax.swing.JPanel jplCardHome;
     private javax.swing.JPanel jplCardListagens;
     private javax.swing.JPanel jplCardModalidades;
+    private javax.swing.JPanel jplCardParametros;
+    private javax.swing.JPanel jplCardParametrosBase;
     private javax.swing.JPanel jplCardQuotas;
     private javax.swing.JPanel jplCardSocios;
     private javax.swing.JPanel jplCardUtilizadores;
@@ -1423,6 +1952,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jplModBarraFerramentas;
     private javax.swing.JPanel jplModTabela;
     private javax.swing.JPanel jplModalidades;
+    private javax.swing.JPanel jplPagamentos;
+    private javax.swing.JPanel jplParametros;
+    private javax.swing.JPanel jplParametrosBarraFerramentas;
+    private javax.swing.JPanel jplParametrosCards;
     private javax.swing.JPanel jplQuotas;
     private javax.swing.JPanel jplQuotasBarraFerramentas;
     private javax.swing.JPanel jplSideBar;
@@ -1435,8 +1968,24 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jplUtilizadores;
     private javax.swing.JLabel lblAbout;
     private javax.swing.JLabel lblAjuda;
+    private javax.swing.JLabel lblAssocEmail;
+    private javax.swing.JLabel lblAssocLogo;
+    private javax.swing.JLabel lblAssocMorada;
+    private javax.swing.JLabel lblAssocNIF;
+    private javax.swing.JLabel lblAssocName;
+    private javax.swing.JLabel lblAssocPresidente;
+    private javax.swing.JLabel lblAssocSecretario;
+    private javax.swing.JLabel lblAssocTelefone;
+    private javax.swing.JLabel lblAssocTelemovel;
+    private javax.swing.JLabel lblAssocTesoureiro;
+    private javax.swing.JLabel lblAssocVogal1;
+    private javax.swing.JLabel lblAssocVogal2;
+    private javax.swing.JLabel lblAssocVogal3;
+    private javax.swing.JLabel lblAssocVogal4;
+    private javax.swing.JLabel lblAssocVogal5;
     private javax.swing.JLabel lblBotaoListagens;
     private javax.swing.JLabel lblBotaoModalidades;
+    private javax.swing.JLabel lblBotaoParametros;
     private javax.swing.JLabel lblBotaoQuotas;
     private javax.swing.JLabel lblBotaoSocios;
     private javax.swing.JLabel lblBotaoUtilizadores;
@@ -1452,16 +2001,26 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblModBtnAlterarModalidade;
     private javax.swing.JLabel lblModBtnCriarModalidade;
     private javax.swing.JLabel lblModBtnInativar;
+    private javax.swing.JLabel lblModBtnInativar1;
     private javax.swing.JLabel lblModBtnVisualizar;
-    private javax.swing.JLabel lblModCartao;
+    private javax.swing.JLabel lblModBtnVisualizar1;
     private javax.swing.JLabel lblModCriar;
     private javax.swing.JLabel lblModEditar;
     private javax.swing.JLabel lblModInativar;
+    private javax.swing.JLabel lblModInativar1;
     private javax.swing.JLabel lblModPesquisar;
     private javax.swing.JLabel lblModTitulo;
     private javax.swing.JLabel lblModValidar;
+    private javax.swing.JLabel lblModVisualizar;
+    private javax.swing.JLabel lblModVisualizar1;
     private javax.swing.JLabel lblModalidadesDescricao;
     private javax.swing.JLabel lblNomeAssociacao;
+    private javax.swing.JLabel lblParamAssociacao;
+    private javax.swing.JLabel lblParamBtnAssociacao;
+    private javax.swing.JLabel lblParamBtnPagamentos;
+    private javax.swing.JLabel lblParamPagamentos;
+    private javax.swing.JLabel lblParametros;
+    private javax.swing.JLabel lblParametrosDescricao;
     private javax.swing.JLabel lblQuoBtnConsultar;
     private javax.swing.JLabel lblQuoBtnImprimir;
     private javax.swing.JLabel lblQuoBtnPagarQuotas;
@@ -1480,11 +2039,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblSocBtnCategoria;
     private javax.swing.JLabel lblSocBtnCriarSocio;
     private javax.swing.JLabel lblSocBtnDesativar;
+    private javax.swing.JLabel lblSocBtnModalidade;
     private javax.swing.JLabel lblSocBtnRenumerar;
     private javax.swing.JLabel lblSocCartao;
     private javax.swing.JLabel lblSocCategoria;
     private javax.swing.JLabel lblSocEditar;
     private javax.swing.JLabel lblSocInativar;
+    private javax.swing.JLabel lblSocModalidade;
     private javax.swing.JLabel lblSocNovo;
     private javax.swing.JLabel lblSocPesquisar;
     private javax.swing.JLabel lblSocRenumerar;
@@ -1512,6 +2073,21 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTable tblQuotas;
     private javax.swing.JTable tblSocios;
     private javax.swing.JTable tblUsers;
+    private javax.swing.JTextField txtAssocEmail;
+    private javax.swing.JTextField txtAssocMorada;
+    private javax.swing.JTextField txtAssocNIF;
+    private javax.swing.JTextField txtAssocName;
+    private javax.swing.JTextField txtAssocName6;
+    private javax.swing.JTextField txtAssocPresidente;
+    private javax.swing.JTextField txtAssocSecretario;
+    private javax.swing.JTextField txtAssocTelefone;
+    private javax.swing.JTextField txtAssocTelemovel;
+    private javax.swing.JTextField txtAssocTesoureiro;
+    private javax.swing.JTextField txtAssocVogal1;
+    private javax.swing.JTextField txtAssocVogal2;
+    private javax.swing.JTextField txtAssocVogal3;
+    private javax.swing.JTextField txtAssocVogal4;
+    private javax.swing.JTextField txtAssocVogal5;
     private javax.swing.JTextField txtHomeTotalSocios;
     private javax.swing.JTextField txtModPesquisar;
     private javax.swing.JTextField txtQuotasPesquisar;
