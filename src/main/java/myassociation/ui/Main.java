@@ -143,6 +143,9 @@ public class Main extends javax.swing.JFrame {
         lblQuoImprimir = new javax.swing.JLabel();
         lblQuoBtnConsultar = new javax.swing.JLabel();
         lblQuoConsultar = new javax.swing.JLabel();
+        lblQuoBtnDefineQuota = new javax.swing.JLabel();
+        lblQuoBtnConsultar1 = new javax.swing.JLabel();
+        lblQuoConsultar1 = new javax.swing.JLabel();
         jplSocQuotasTabela = new javax.swing.JPanel();
         lblQuotasPesquisar = new javax.swing.JLabel();
         jcbQuotasPesquisar = new javax.swing.JComboBox<>();
@@ -667,6 +670,25 @@ public class Main extends javax.swing.JFrame {
         lblQuoConsultar.setText("Consultar");
         jplQuotasBarraFerramentas.add(lblQuoConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 60, -1));
 
+        lblQuoBtnDefineQuota.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQuoBtnDefineQuota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Quotas_Consultar_50px.png"))); // NOI18N
+        lblQuoBtnDefineQuota.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblQuoBtnDefineQuota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblQuoBtnDefineQuotaMousePressed(evt);
+            }
+        });
+        jplQuotasBarraFerramentas.add(lblQuoBtnDefineQuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 54, 52));
+
+        lblQuoBtnConsultar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQuoBtnConsultar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Quotas_Consultar_50px.png"))); // NOI18N
+        lblQuoBtnConsultar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jplQuotasBarraFerramentas.add(lblQuoBtnConsultar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 54, 52));
+
+        lblQuoConsultar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblQuoConsultar1.setText("Valor Quota");
+        jplQuotasBarraFerramentas.add(lblQuoConsultar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 80, -1));
+
         jplCardQuotas.add(jplQuotasBarraFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1194, -1));
 
         jplSocQuotasTabela.setBackground(new java.awt.Color(246, 246, 246));
@@ -1006,7 +1028,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUtilBtnCriarUtilMousePressed
 
     private void lblQuoBtnPagarQuotasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuoBtnPagarQuotasMousePressed
-        // TODO add your handling code here:
+         new CreateQuota().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_lblQuoBtnPagarQuotasMousePressed
 
     private void lblSocBtnAlterarSocioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSocBtnAlterarSocioMousePressed
@@ -1136,6 +1158,10 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblSocBtnRenumerarMousePressed
 
+    private void lblQuoBtnDefineQuotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuoBtnDefineQuotaMousePressed
+        new CreateQuota().setVisible(true);
+    }//GEN-LAST:event_lblQuoBtnDefineQuotaMousePressed
+
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(196, 219, 255));
     }
@@ -1246,9 +1272,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblNomeAssociacao;
     private javax.swing.JLabel lblQuoBtnConsultar;
+    private javax.swing.JLabel lblQuoBtnConsultar1;
+    private javax.swing.JLabel lblQuoBtnDefineQuota;
     private javax.swing.JLabel lblQuoBtnImprimir;
     private javax.swing.JLabel lblQuoBtnPagarQuotas;
     private javax.swing.JLabel lblQuoConsultar;
+    private javax.swing.JLabel lblQuoConsultar1;
     private javax.swing.JLabel lblQuoImprimir;
     private javax.swing.JLabel lblQuoPagar;
     private javax.swing.JLabel lblQuotasDescricao;
