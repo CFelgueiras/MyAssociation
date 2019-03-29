@@ -153,8 +153,6 @@ public class Main extends javax.swing.JFrame {
         lblSocApagar = new javax.swing.JLabel();
         lblSocBtnCategoria = new javax.swing.JLabel();
         lblSocCategoria = new javax.swing.JLabel();
-        lblSocBtnModalidade = new javax.swing.JLabel();
-        lblSocModalidade = new javax.swing.JLabel();
         jplSocTabela = new javax.swing.JPanel();
         lblSocPesquisar = new javax.swing.JLabel();
         jcbSocPesquisar = new javax.swing.JComboBox<>();
@@ -209,6 +207,8 @@ public class Main extends javax.swing.JFrame {
         lblModInativar = new javax.swing.JLabel();
         lblModBtnVisualizar = new javax.swing.JLabel();
         lblModVisualizar = new javax.swing.JLabel();
+        lblModBtnInscrever = new javax.swing.JLabel();
+        lblModVisualizar2 = new javax.swing.JLabel();
         jplModTabela = new javax.swing.JPanel();
         lblModPesquisar = new javax.swing.JLabel();
         txtModPesquisar = new javax.swing.JTextField();
@@ -385,7 +385,7 @@ public class Main extends javax.swing.JFrame {
         lblCalculator.setForeground(new java.awt.Color(255, 255, 255));
         lblCalculator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCalculator.setText("Calculadora");
-        jplTop.add(lblCalculator, new org.netbeans.lib.awtextra.AbsoluteConstraints(1145, 75, -1, -1));
+        jplTop.add(lblCalculator, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 75, 60, -1));
 
         lblDefinicoes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDefinicoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Utils_Definicoes_40px.png"))); // NOI18N
@@ -706,20 +706,6 @@ public class Main extends javax.swing.JFrame {
         lblSocCategoria.setText("Categoria");
         jplSocBarraFerramentas.add(lblSocCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 70, 60, -1));
 
-        lblSocBtnModalidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSocBtnModalidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Socios_Modalidade_50px.png"))); // NOI18N
-        lblSocBtnModalidade.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblSocBtnModalidadeMousePressed(evt);
-            }
-        });
-        jplSocBarraFerramentas.add(lblSocBtnModalidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 54, 52));
-
-        lblSocModalidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblSocModalidade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSocModalidade.setText("Modalidade");
-        jplSocBarraFerramentas.add(lblSocModalidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(495, 70, 70, -1));
-
         jplCardSocios.add(jplSocBarraFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1194, -1));
 
         jplSocTabela.setBackground(new java.awt.Color(246, 246, 246));
@@ -751,7 +737,7 @@ public class Main extends javax.swing.JFrame {
         ));
         scrollSocios.setViewportView(tblSocios);
 
-        jplSocTabela.add(scrollSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 1194, 575));
+        jplSocTabela.add(scrollSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 1194, 580));
 
         lblSocValidar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Filtrar_40px.png"))); // NOI18N
         lblSocValidar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -861,6 +847,7 @@ public class Main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
             }
         ));
+        tblQuotas.setPreferredSize(new java.awt.Dimension(225, 64));
         scrollQuotas.setViewportView(tblQuotas);
 
         jplSocQuotasTabela.add(scrollQuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 1194, 580));
@@ -1062,6 +1049,20 @@ public class Main extends javax.swing.JFrame {
         lblModVisualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblModVisualizar.setText("Visualizar");
         jplModBarraFerramentas.add(lblModVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 56, -1));
+
+        lblModBtnInscrever.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModBtnInscrever.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/main_images/Modalidades_Inscrever_50px.png"))); // NOI18N
+        lblModBtnInscrever.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblModBtnInscreverMousePressed(evt);
+            }
+        });
+        jplModBarraFerramentas.add(lblModBtnInscrever, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 54, 52));
+
+        lblModVisualizar2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModVisualizar2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModVisualizar2.setText("Inscrever");
+        jplModBarraFerramentas.add(lblModVisualizar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 56, -1));
 
         jplCardModalidades.add(jplModBarraFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1194, -1));
 
@@ -1713,10 +1714,6 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblModBtnVisualizarMousePressed
 
-    private void lblSocBtnModalidadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSocBtnModalidadeMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblSocBtnModalidadeMousePressed
-
     private void lblBotaoParametrosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBotaoParametrosMousePressed
         CardLayout card = (CardLayout) jplCardBase.getLayout();
         card.show(jplCardBase, "jplCardParametros");
@@ -1794,6 +1791,10 @@ public class Main extends javax.swing.JFrame {
             Logger.getLogger(AssociationSettings.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAssocSaveActionPerformed
+
+    private void lblModBtnInscreverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModBtnInscreverMousePressed
+        new SubscribeSport(username).setVisible(true);
+    }//GEN-LAST:event_lblModBtnInscreverMousePressed
 
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(196, 219, 255));
@@ -2002,6 +2003,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblModBtnCriarModalidade;
     private javax.swing.JLabel lblModBtnInativar;
     private javax.swing.JLabel lblModBtnInativar1;
+    private javax.swing.JLabel lblModBtnInscrever;
     private javax.swing.JLabel lblModBtnVisualizar;
     private javax.swing.JLabel lblModBtnVisualizar1;
     private javax.swing.JLabel lblModCriar;
@@ -2013,6 +2015,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblModValidar;
     private javax.swing.JLabel lblModVisualizar;
     private javax.swing.JLabel lblModVisualizar1;
+    private javax.swing.JLabel lblModVisualizar2;
     private javax.swing.JLabel lblModalidadesDescricao;
     private javax.swing.JLabel lblNomeAssociacao;
     private javax.swing.JLabel lblParamAssociacao;
@@ -2039,13 +2042,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblSocBtnCategoria;
     private javax.swing.JLabel lblSocBtnCriarSocio;
     private javax.swing.JLabel lblSocBtnDesativar;
-    private javax.swing.JLabel lblSocBtnModalidade;
     private javax.swing.JLabel lblSocBtnRenumerar;
     private javax.swing.JLabel lblSocCartao;
     private javax.swing.JLabel lblSocCategoria;
     private javax.swing.JLabel lblSocEditar;
     private javax.swing.JLabel lblSocInativar;
-    private javax.swing.JLabel lblSocModalidade;
     private javax.swing.JLabel lblSocNovo;
     private javax.swing.JLabel lblSocPesquisar;
     private javax.swing.JLabel lblSocRenumerar;

@@ -254,10 +254,10 @@ public class CreateMember extends javax.swing.JFrame {
             } else if (jcbSociosCategoria.getItemCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Não existem categorias de sócio criadas. \nCrie novas categorias no menu anterior.", "Criar categoria", JOptionPane.ERROR_MESSAGE);
             } else {
-                boolean sociocriado = socioController.criarSocio(txtSociosNumero.getText(), 
+                boolean sociocriado = socioController.criarSocio(txtSociosNumero.getText(),
                         txtSociosNome.getText(), txtSociosMorada.getText(), txtSociosNIF.getText(),
-                        txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(), 
-                        convertImagetoByte(foto), ativo, apagado, 
+                        txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(),
+                        convertImagetoByte(foto), ativo, apagado,
                         (String) jcbSociosCategoria.getSelectedItem(), username);
                 if (!sociocriado) {
                     JOptionPane.showMessageDialog(null, "Erro ao criar sócio.\n Verifique os dados.", "Criar sócio", JOptionPane.ERROR_MESSAGE);

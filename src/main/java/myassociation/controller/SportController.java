@@ -29,6 +29,10 @@ public class SportController {
     public ArrayList<Sport> listarModalidades(String dado, String pesquisa, boolean ativo) {
         return sportDAO.listarModalidades(dado, pesquisa, ativo);
     }
+    
+    public String[] listaModalidades() {
+        return sportDAO.listaModalidades();
+    }
 
     public boolean editarModalidade(String nomeAntigo, String novoNome, String responsavel, boolean ativo, String username) {
         return sportDAO.editarModalidade(nomeAntigo, novoNome, responsavel, ativo, username);

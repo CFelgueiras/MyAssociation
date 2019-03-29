@@ -21,6 +21,7 @@ import myassociation.model.Sport;
 public class SportImpl implements ISportDAO {
 
     private UserImpl userimpl = new UserImpl();
+    private MemberImpl socioimpl = new MemberImpl();
 
     /**
      *
@@ -106,6 +107,28 @@ public class SportImpl implements ISportDAO {
     }
 
     @Override
+    public String[] listaModalidades() {
+        ArrayList<String> listacategorias = new ArrayList<>();
+
+        try {
+            Statement listaassoc = ConnectDB.conexaoBD().createStatement();
+            String query = "SELECT nome FROM MODALIDADE";
+            ResultSet rs = listaassoc.executeQuery(query);
+
+            while (rs.next()) {
+                String categoria = rs.getString("nome");
+                listacategorias.add(categoria);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(AssociationImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String[] listaretorno = listacategorias.toArray(new String[listacategorias.size()]);
+
+        return listaretorno;
+    }
+
+    @Override
     public boolean editarModalidade(String nomeAntigo, String novoNome, String responsavel, boolean ativo, String username) {
         boolean modalidadeEditada = false;
         int idutilizador = userimpl.obterIdUtilizadorbyNome(username);
@@ -168,5 +191,35 @@ public class SportImpl implements ISportDAO {
             Logger.getLogger(SportImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return idmodalidade;
+    }
+
+    public boolean inscreverModalidade(int numerosocio, String modalidade, String username) {
+        boolean inscrito = true, ativo = true, modalidadecriada = true;
+        boolean apagado = false;
+        
+        int idutilizador = userimpl.obterIdUtilizadorbyNome(username);
+        int idsocio = socioimpl.getSocioIdByNumero(numerosocio);
+        int idmodalidade = getModalidadeIdByNome(modalidade);
+
+        try {
+            String query = "Insert into SOCIOMODALIDADE (idsocio, idmodalidade, inscrito, ativo, apagado, idutilizador, datacriacao,"
+                    + " datamodificacao) Values(?,?,?,?,?,current_timestamp,current_timestamp)";
+
+            PreparedStatement sociomodalidade = ConnectDB.conexaoBD().prepareStatement(query);
+
+            sociomodalidade.setInt(1, idsocio);
+            sociomodalidade.setInt(2, idmodalidade);
+            sociomodalidade.setBoolean(3, inscrito);
+            sociomodalidade.setBoolean(4, ativo);
+            sociomodalidade.setBoolean(5, apagado);
+            sociomodalidade.setInt(6, idutilizador);
+
+            sociomodalidade.executeUpdate();
+            modalidadecriada = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SportImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return modalidadecriada;
     }
 }

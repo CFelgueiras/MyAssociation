@@ -245,13 +245,10 @@ public class MemberImpl implements IMemberDAO {
     public boolean criarCategoria(String nome) {
         boolean categoriacriada = false;
         boolean categoriajaexiste = procurarCategoriaPorNome(nome);
-        System.out.println("categoriajaexiste: " + categoriajaexiste);
         if (!categoriajaexiste) {
             try {
                 String query = "INSERT INTO CATEGORIA (nome) VALUES(?)";
                 PreparedStatement categoria = ConnectDB.conexaoBD().prepareStatement(query);
-                System.out.println(query);
-                System.out.println(nome);
                 categoria.setString(1, nome);
                 categoria.executeUpdate();
                 categoriacriada = true;
@@ -309,5 +306,22 @@ public class MemberImpl implements IMemberDAO {
             Logger.getLogger(MemberImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return renumeracao;
+    }
+    
+        public int getSocioIdByNumero(int numero) {
+        int idsocio = 0;
+
+        try {
+            Statement socioid = ConnectDB.conexaoBD().createStatement();
+            String query = "SELECT idsocio FROM SOCIO WHERE NUMERO = '" + numero + "'";
+            ResultSet rs = socioid.executeQuery(query);
+
+            while (rs.next()) {
+                idsocio = rs.getInt("idsocio");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SportImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idsocio;
     }
 }
