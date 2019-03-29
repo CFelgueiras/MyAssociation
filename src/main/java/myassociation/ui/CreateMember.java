@@ -53,7 +53,6 @@ public class CreateMember extends javax.swing.JFrame {
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         this.username = username;
         jcbSociosCategoria.setModel(new DefaultComboBoxModel<>(socioController.listaCategoriasSocios()));
-        jcbSociosAssociacao.setModel(new DefaultComboBoxModel<>(assocController.listaNomesAssociacoes()));
     }
 
     /**
@@ -86,8 +85,6 @@ public class CreateMember extends javax.swing.JFrame {
         lblClose = new javax.swing.JLabel();
         lblMinimize = new javax.swing.JLabel();
         lblCriarSocioTitulo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jcbSociosAssociacao = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jcbSociosCategoria = new javax.swing.JComboBox<>();
 
@@ -218,14 +215,6 @@ public class CreateMember extends javax.swing.JFrame {
         lblCriarSocioTitulo.setText("CRIAR SÓCIO");
         jplCriarSocio.add(lblCriarSocioTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 0, 430, 30));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 98, 206));
-        jLabel1.setText("Associação:");
-        jLabel1.setPreferredSize(new java.awt.Dimension(40, 15));
-        jplCriarSocio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 70, 26));
-
-        jplCriarSocio.add(jcbSociosAssociacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 210, 26));
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 98, 206));
         jLabel2.setText("Categoria:");
@@ -265,7 +254,11 @@ public class CreateMember extends javax.swing.JFrame {
             } else if (jcbSociosCategoria.getItemCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Não existem categorias de sócio criadas. \nCrie novas categorias no menu anterior.", "Criar categoria", JOptionPane.ERROR_MESSAGE);
             } else {
-                boolean sociocriado = socioController.criarSocio(txtSociosNumero.getText(), txtSociosNome.getText(), txtSociosMorada.getText(), txtSociosNIF.getText(), txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(), convertImagetoByte(foto), ativo, apagado, (String) jcbSociosCategoria.getSelectedItem(), (String) jcbSociosAssociacao.getSelectedItem(), username);
+                boolean sociocriado = socioController.criarSocio(txtSociosNumero.getText(), 
+                        txtSociosNome.getText(), txtSociosMorada.getText(), txtSociosNIF.getText(),
+                        txtSociosEmail.getText(), txtSociosTelefone.getText(), txtSociosTelemovel.getText(), 
+                        convertImagetoByte(foto), ativo, apagado, 
+                        (String) jcbSociosCategoria.getSelectedItem(), username);
                 if (!sociocriado) {
                     JOptionPane.showMessageDialog(null, "Erro ao criar sócio.\n Verifique os dados.", "Criar sócio", JOptionPane.ERROR_MESSAGE);
                     txtSociosNumero.setText("");
@@ -359,9 +352,7 @@ public class CreateMember extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSociosCriar;
     private javax.swing.JButton btnSociosFoto;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JComboBox<String> jcbSociosAssociacao;
     private javax.swing.JComboBox<String> jcbSociosCategoria;
     private javax.swing.JPanel jplCriarSocio;
     private javax.swing.JLabel lblClose;

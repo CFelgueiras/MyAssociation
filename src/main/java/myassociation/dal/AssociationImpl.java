@@ -21,15 +21,34 @@ import myassociation.model.Association;
 public class AssociationImpl implements IAssociationDAO {
 
     @Override
-    public boolean editarAssociacao(String nome, byte[] logotipo) {
+    public boolean editarAssociacao(String nome, String nif, String presidente,
+            String secretario, String tesoureiro, String vogal1, String vogal2,
+            String vogal3, String vogal4, String vogal5, String morada,
+            String telefone, String telemovel, String email, byte[] logotipo) {
         boolean associacaoeditada = false;
 
         try {
-            String query = "UPDATE ASSOCIACAO SET nome = ?, logotipo = ?";
+            String query = "UPDATE ASSOCIACAO SET nome = ?, nif = ?, presidente = ?,"
+                    + " secretario = ?, tesoureiro =?, vogal1 =?, vogal2 = ?, "
+                    + "vogal3 = ?, vogal4 = ?, vogal5 = ?, morada =?, telefone = ?,"
+                    + "telemovel = ?, email = ?, logotipo = ?";
             PreparedStatement associacao = ConnectDB.conexaoBD().prepareStatement(query);
 
             associacao.setString(1, nome);
-            associacao.setBytes(2, logotipo);
+            associacao.setString(2, nif);
+            associacao.setString(3, presidente);
+            associacao.setString(4, secretario);
+            associacao.setString(5, tesoureiro);
+            associacao.setString(6, vogal1);
+            associacao.setString(7, vogal2);
+            associacao.setString(8, vogal3);
+            associacao.setString(9, vogal4);
+            associacao.setString(10, vogal5);
+            associacao.setString(11, morada);
+            associacao.setString(12, telefone);
+            associacao.setString(13, telemovel);
+            associacao.setString(14, email);
+            associacao.setBytes(15, logotipo);
             associacao.executeUpdate();
             associacaoeditada = true;
         } catch (SQLException ex) {
@@ -44,10 +63,25 @@ public class AssociationImpl implements IAssociationDAO {
         Association associacao = new Association();
         try {
             Statement obterAssociacao = ConnectDB.conexaoBD().createStatement();
-            String query = "SELECT nome,logotipo FROM ASSOCIACAO";
+            String query = "SELECT nome, nif, presidente, secretario, tesoureiro, "
+                    + "vogal1,vogal2, vogal3, vogal4, vogal5, morada, telefone, "
+                    + "telemovel, email, logotipo FROM ASSOCIACAO";
             ResultSet rs = obterAssociacao.executeQuery(query);
             while (rs.next()) {
                 associacao.setNome(rs.getString("nome"));
+                associacao.setNif(rs.getString("nif"));
+                associacao.setPresidente(rs.getString("presidente"));
+                associacao.setSecretario(rs.getString("secretario"));
+                associacao.setTesoureiro(rs.getString("tesoureiro"));
+                associacao.setVogal1(rs.getString("vogal1"));
+                associacao.setVogal2(rs.getString("vogal2"));
+                associacao.setVogal3(rs.getString("vogal3"));
+                associacao.setVogal4(rs.getString("vogal4"));
+                associacao.setVogal5(rs.getString("vogal5"));
+                associacao.setMorada(rs.getString("morada"));
+                associacao.setTelefone(rs.getString("telefone"));
+                associacao.setTelemovel(rs.getString("telemovel"));
+                associacao.setEmail(rs.getString("email"));
                 associacao.setLogotipo(rs.getBytes("logotipo"));
             }
         } catch (SQLException ex) {

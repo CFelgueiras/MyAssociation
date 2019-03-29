@@ -14,8 +14,8 @@ import myassociation.model.Member;
  */
 public interface IMemberDAO {
     
-    public boolean criarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, boolean apagado, String categoria, String associacao, String username);
-    public boolean editarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, String categoria, String associacao,String username);
+    public boolean criarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, boolean apagado, String categoria, String username);
+    public boolean editarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, String categoria, String username);
     public boolean inativarSocio(String numero);
     public boolean apagarSocio(String numero);
     public ArrayList<Member> pesquisarSocio(String dado, String pesquisa, boolean ativo);

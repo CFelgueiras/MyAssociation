@@ -18,7 +18,7 @@ public interface IUserDAO {
     
     public boolean pesquisaUtilizador(String nome);
     
-    public boolean criarUtilizador(String nome, String senha, String grupo, String associacao);
+    public boolean criarUtilizador(String nome, String senha, String grupo);
     
     public ArrayList<User> searchUser(String dado, String pesquisa);
     

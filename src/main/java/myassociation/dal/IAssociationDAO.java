@@ -13,7 +13,10 @@ import myassociation.model.Association;
  */
 public interface IAssociationDAO {
     
-    public boolean editarAssociacao(String nome, byte[] logotipo);
+    public boolean editarAssociacao(String nome, String nif, String presidente, 
+            String secretario, String tesoureiro, String vogal1, String vogal2, 
+            String vogal3, String vogal4, String vogal5, String morada, 
+            String telefone, String telemovel, String email, byte[] logotipo);
     public Association obterAssociacao();
     public String[] listaNomesAssociacoes();
     public int obterAssociacaoIDbyNome(String nomeassociacao);

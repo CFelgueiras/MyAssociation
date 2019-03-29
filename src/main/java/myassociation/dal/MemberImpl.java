@@ -24,15 +24,19 @@ public class MemberImpl implements IMemberDAO {
     private AssociationImpl associacaoimpl = new AssociationImpl();
 
     @Override
-    public boolean criarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, boolean apagado, String categoria, String associacao, String username) {
+    public boolean criarSocio(String numero, String nome, String morada, String nif, 
+            String email, String telefone, String telemovel, byte[] fotografia, 
+            boolean ativo, boolean apagado, String categoria, String username) {
         boolean sociocriado = false;
 
         int idutilizador = userimpl.obterIdUtilizadorbyNome(username);
-        int idassociacao = associacaoimpl.obterAssociacaoIDbyNome(associacao);
+        int idassociacao = 1;
         int idcategoria = getCategoriaIdPorNome(categoria);
         try {
 
-            String query = "Insert into SOCIO (numero,nif,nome,telefone,telemovel,morada,email,ativo,fotografia,apagado,idutilizador,idassociacao,idcategoria,datacriacao,datamodif) "
+            String query = "Insert into SOCIO (numero,nif,nome,telefone,telemovel,"
+                    + "morada,email,ativo,fotografia,apagado,idutilizador,"
+                    + "idassociacao,idcategoria,datacriacao,datamodif) "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp,current_timestamp)";
             PreparedStatement socio = ConnectDB.conexaoBD().prepareStatement(query);
 
@@ -66,7 +70,9 @@ public class MemberImpl implements IMemberDAO {
 
         try {
             Statement pesquisarSocio = ConnectDB.conexaoBD().createStatement();
-            String query = "SELECT s.NUMERO,s.NIF, s.NOME,s.TELEFONE,s.TELEMOVEL,s.MORADA,s.EMAIL,s.DATACRIACAO,s.DATAMODIF,u.UTILIZADOR,c.NOME as CATEGORIA,a.NOME as ASSOCIACAO FROM SOCIO s "
+            String query = "SELECT s.NUMERO,s.NIF, s.NOME,s.TELEFONE,s.TELEMOVEL,"
+                    + "s.MORADA,s.EMAIL,s.DATACRIACAO,s.DATAMODIF,u.UTILIZADOR,"
+                    + "c.NOME as CATEGORIA,a.NOME as ASSOCIACAO FROM SOCIO s "
                     + "INNER JOIN UTILIZADOR u ON u.IDUTILIZADOR = s.IDUTILIZADOR\n"
                     + "INNER JOIN CATEGORIA c ON c.IDCATEGORIA = s.IDCATEGORIA\n"
                     + "INNER JOIN ASSOCIACAO a ON a.IDASSOCIACAO = s.IDASSOCIACAO\n"
@@ -84,7 +90,6 @@ public class MemberImpl implements IMemberDAO {
                 socio.setEmail(rs.getString("email"));
                 socio.setDatacriacao(rs.getTimestamp("datacriacao"));
                 socio.setDatamodif(rs.getTimestamp("datamodif"));
-                socio.setAssociacao(rs.getString("associacao"));
                 socio.setCategoria(rs.getString("categoria"));
                 socio.setUtilizador(rs.getString("utilizador"));
                 listasocios.add(socio);
@@ -166,13 +171,13 @@ public class MemberImpl implements IMemberDAO {
     }
 
     @Override
-    public boolean editarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, String categoria, String associacao, String username) {
+    public boolean editarSocio(String numero, String nome, String morada, String nif, String email, String telefone, String telemovel, byte[] fotografia, boolean ativo, String categoria, String username) {
         boolean sociocriado = false;
         int idutilizador = userimpl.obterIdUtilizadorbyNome(username);
-        int idassociacao = associacaoimpl.obterAssociacaoIDbyNome(associacao);
+        int idassociacao = 1;
         int idcategoria = getCategoriaIdPorNome(categoria);
         try {
-            String query = "UPDATE SOCIO SET nif = ?,nome = ?,telefone = ?,telemovel = ?,morada = ?,email = ?,datamodif = current_timestamp, ativo = ?,fotografia = ?, idcategoria=?, idassociacao =?, idutilizador=?  WHERE numero = ?";
+            String query = "UPDATE SOCIO SET nif = ?,nome = ?,telefone = ?,telemovel = ?,morada = ?,email = ?,datamodif = current_timestamp, ativo = ?,fotografia = ?, idcategoria=?, idutilizador=?  WHERE numero = ?";
             PreparedStatement socio = ConnectDB.conexaoBD().prepareStatement(query);
 
             socio.setString(1, nif);
@@ -184,9 +189,8 @@ public class MemberImpl implements IMemberDAO {
             socio.setBoolean(7, ativo);
             socio.setBytes(8, fotografia);
             socio.setInt(9, idcategoria);
-            socio.setInt(10, idassociacao);
-            socio.setInt(11, idutilizador);
-            socio.setString(12, numero);
+            socio.setInt(10, idutilizador);
+            socio.setString(11, numero);
 
             socio.executeUpdate();
             sociocriado = true;

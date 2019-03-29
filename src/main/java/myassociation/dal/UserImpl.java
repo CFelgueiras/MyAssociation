@@ -1,5 +1,8 @@
 package myassociation.dal;
 
+import Utils.EncryptUtils;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +14,8 @@ import java.util.logging.Logger;
 import myassociation.model.User;
 
 /**
- * Class that implements IUserDAO interface for user database data manipulation 
+ * Class that implements IUserDAO interface for user database data manipulation
+ *
  * @author FELGUEIRAS
  */
 public class UserImpl implements IUserDAO {
@@ -25,7 +29,7 @@ public class UserImpl implements IUserDAO {
             String query = "SELECT utilizador,senha FROM UTILIZADOR WHERE utilizador = ? AND senha = ?";
             PreparedStatement login = ConnectDB.conexaoBD().prepareStatement(query);
             login.setString(1, nome);
-            login.setString(2, senha);
+            login.setString(2, EncryptUtils.encrypt(senha));//
             ResultSet resultLogin = login.executeQuery();
 
             if (resultLogin.next()) {
@@ -36,6 +40,10 @@ public class UserImpl implements IUserDAO {
             }
         } catch (SQLException ex) {
             ex.getMessage();
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            Logger.getLogger(
+                    UserImpl.class.getName()
+            ).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 ConnectDB.desconexaoBD();
@@ -73,12 +81,12 @@ public class UserImpl implements IUserDAO {
     }
 
     @Override
-    public boolean criarUtilizador(String utilizador, String senha, String grupo, String associacao) {
+    public boolean criarUtilizador(String utilizador, String senha, String grupo) {
         boolean utilcriado = false;
         Calendar calendar = Calendar.getInstance();
         java.sql.Date date = new java.sql.Date(calendar.getTimeInMillis());
 
-        int idassociacao = associacaoimpl.obterAssociacaoIDbyNome(associacao);
+        int idassociacao = 1;
         int idgrupoutilizador = obterIdGrupoUtilizadorbyNome(grupo);
 
         try {
@@ -86,15 +94,24 @@ public class UserImpl implements IUserDAO {
             boolean utiljaexiste = pesquisaLogin(utilizador, senha);
 
             if (!utiljaexiste) {
-                String query = "INSERT into UTILIZADOR(utilizador, senha, datacriacao, datamodificacao, IDGRUPOUTILIZADOR, IDASSOCIACAO) VALUES (?,?,?,?,?,?)";
-                PreparedStatement criarutil = ConnectDB.conexaoBD().prepareStatement(query);
+                String query = "INSERT INTO"
+                        + " UTILIZADOR("
+                        + "             utilizador,"
+                        + "             senha,"
+                        + "             datacriacao,"
+                        + "             datamodificacao,"
+                        + "             IDGRUPOUTILIZADOR"
+                        + "             "
+                        + ") VALUES (?,?,?,?,?)";
+                PreparedStatement criarutil = ConnectDB.conexaoBD()
+                        .prepareStatement(query);
                 System.out.println(query);
                 criarutil.setString(1, utilizador);
-                criarutil.setString(2, senha);
+                criarutil.setString(2, EncryptUtils.encrypt(senha));
                 criarutil.setDate(3, date);
                 criarutil.setDate(4, date);
                 criarutil.setInt(5, idgrupoutilizador);
-                criarutil.setInt(6, idassociacao);
+                //criarutil.setInt(6, idassociacao);
                 criarutil.executeUpdate();
 
                 utilcriado = true;
@@ -102,7 +119,13 @@ public class UserImpl implements IUserDAO {
                 utiljaexiste = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(
+                    UserImpl.class.getName()
+            ).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            Logger.getLogger(
+                    UserImpl.class.getName()
+            ).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 ConnectDB.desconexaoBD();
@@ -110,6 +133,7 @@ public class UserImpl implements IUserDAO {
                 Logger.getLogger(UserImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
         return utilcriado;
     }
 

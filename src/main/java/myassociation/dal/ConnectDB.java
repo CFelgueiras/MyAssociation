@@ -6,14 +6,16 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- * Database connector class using Singleton Desing Patern
+ * Database connector class using Singleton Design Pattern
  * @author Claudio Felgueiras
  */
 public class ConnectDB {
 
     private static final String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static final String CONNECTIONURL = "jdbc:sqlserver://localhost:1433;" +  
-   "databaseName=MYASSOCIATION;user=sa;password=Myassociation2018;";  
+    private static final String LOCALCONNECTIONURL = "jdbc:sqlserver://localhost:1433;" +  
+   "databaseName=MYASSOCIATION;user=sa;password=Myassociation2018;";
+    private static final String REMOTECONNECTIONURL = "jdbc:sqlserver://mssql.lastsoftware.pt\\MSSQLSERVER2017;" +  
+   "databaseName=MYASSOCIATION;user=lastsoftware;password=Association2018;";  
     private static Connection conexao;
 
     /**
@@ -25,7 +27,7 @@ public class ConnectDB {
         if (conexao == null) {
             try {
                 Class.forName(DATABASE_DRIVER);
-                conexao = DriverManager.getConnection(CONNECTIONURL);
+                conexao = DriverManager.getConnection(REMOTECONNECTIONURL);
                 
             } catch (ClassNotFoundException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Ligação à Base de dados impossivel." + "\n" + e);

@@ -6,6 +6,7 @@
 package myassociation.ui;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -31,10 +32,9 @@ public class AssociationSettings extends javax.swing.JFrame {
 
     private static final long serialVersionUID = -7529338988103187213L;
 
-    private AssociationController associationController = new AssociationController();
-    private File ficheiro;
-    private BufferedImage logo;
+    private AssociationController associationController;
     private Association associacao;
+    private Point initialClick;
     private final Object[] joptionpaneoptions = {"Sim", "Não"};
 
     /**
@@ -42,9 +42,8 @@ public class AssociationSettings extends javax.swing.JFrame {
      */
     public AssociationSettings() {
         initComponents();
+        associationController = new AssociationController();
         associacao = associationController.obterAssociacao();
-        setDados();
-        logo = createImageFromBytes(associacao.getLogotipo());
         this.setIconImage(associationController.applicationIcon());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -63,13 +62,15 @@ public class AssociationSettings extends javax.swing.JFrame {
         lblMinimize = new javax.swing.JLabel();
         lblClose = new javax.swing.JLabel();
         jtabbedAssocSettings = new javax.swing.JTabbedPane();
-        jplAssociationGeneral = new javax.swing.JPanel();
-        txtAssocName = new javax.swing.JTextField();
-        lblAssocName = new javax.swing.JLabel();
-        lblAssocLogo = new javax.swing.JLabel();
-        btnAssocLogo = new javax.swing.JButton();
-        btnAssocSave = new javax.swing.JButton();
-        jplAssociationMember = new javax.swing.JPanel();
+        jplGeneralSettings = new javax.swing.JPanel();
+        btnGeneralSave = new javax.swing.JButton();
+        jplSettingsLogo = new javax.swing.JPanel();
+        lblApplicationLogo = new javax.swing.JLabel();
+        btnApplicationLogo = new javax.swing.JButton();
+        lblAssocName2 = new javax.swing.JLabel();
+        jplSettingsColor = new javax.swing.JPanel();
+        jccGeneral = new javax.swing.JColorChooser();
+        lblGeneralColor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 98, 206));
@@ -79,6 +80,11 @@ public class AssociationSettings extends javax.swing.JFrame {
 
         jplMainSettings.setBackground(new java.awt.Color(246, 246, 246));
         jplMainSettings.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255), 2));
+        jplMainSettings.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jplMainSettingsMouseDragged(evt);
+            }
+        });
         jplMainSettings.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMinimize.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -91,7 +97,7 @@ public class AssociationSettings extends javax.swing.JFrame {
                 lblMinimizeMousePressed(evt);
             }
         });
-        jplMainSettings.add(lblMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 30, 32));
+        jplMainSettings.add(lblMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 30, 32));
 
         lblClose.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblClose.setForeground(new java.awt.Color(0, 98, 206));
@@ -103,7 +109,7 @@ public class AssociationSettings extends javax.swing.JFrame {
                 lblCloseMousePressed(evt);
             }
         });
-        jplMainSettings.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 32, 32));
+        jplMainSettings.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, 32, 32));
 
         jtabbedAssocSettings.setBackground(new java.awt.Color(255, 255, 255));
         jtabbedAssocSettings.setForeground(new java.awt.Color(0, 98, 206));
@@ -111,60 +117,62 @@ public class AssociationSettings extends javax.swing.JFrame {
         jtabbedAssocSettings.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtabbedAssocSettings.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jplAssociationGeneral.setBackground(new java.awt.Color(246, 246, 246));
-        jplAssociationGeneral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jplAssociationGeneral.add(txtAssocName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 260, 26));
+        jplGeneralSettings.setBackground(new java.awt.Color(246, 246, 246));
+        jplGeneralSettings.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jplGeneralSettings.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblAssocName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblAssocName.setForeground(new java.awt.Color(0, 98, 206));
-        lblAssocName.setText("Nome da Associação:");
-        jplAssociationGeneral.add(lblAssocName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, 26));
-
-        lblAssocLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAssocLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jplAssociationGeneral.add(lblAssocLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 410, 170));
-
-        btnAssocLogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnAssocLogo.setForeground(new java.awt.Color(0, 98, 206));
-        btnAssocLogo.setLabel("Logótipo");
-        btnAssocLogo.addActionListener(new java.awt.event.ActionListener() {
+        btnGeneralSave.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnGeneralSave.setForeground(new java.awt.Color(0, 98, 206));
+        btnGeneralSave.setText("Guardar");
+        btnGeneralSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAssocLogoActionPerformed(evt);
+                btnGeneralSaveActionPerformed(evt);
             }
         });
-        jplAssociationGeneral.add(btnAssocLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 140, 30));
-        btnAssocLogo.getAccessibleContext().setAccessibleName("");
+        jplGeneralSettings.add(btnGeneralSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, 93, 40));
 
-        btnAssocSave.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnAssocSave.setForeground(new java.awt.Color(0, 98, 206));
-        btnAssocSave.setText("Guardar");
-        btnAssocSave.addActionListener(new java.awt.event.ActionListener() {
+        jplSettingsLogo.setBackground(new java.awt.Color(246, 246, 246));
+        jplSettingsLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblApplicationLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblApplicationLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jplSettingsLogo.add(lblApplicationLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 5, 130, 110));
+
+        btnApplicationLogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnApplicationLogo.setForeground(new java.awt.Color(0, 98, 206));
+        btnApplicationLogo.setLabel("Logótipo");
+        btnApplicationLogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAssocSaveActionPerformed(evt);
+                btnApplicationLogoActionPerformed(evt);
             }
         });
-        jplAssociationGeneral.add(btnAssocSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 93, 40));
+        jplSettingsLogo.add(btnApplicationLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 130, 30));
 
-        jtabbedAssocSettings.addTab("Gerais", jplAssociationGeneral);
+        lblAssocName2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAssocName2.setForeground(new java.awt.Color(0, 98, 206));
+        lblAssocName2.setText("Logótipo da aplicação:");
+        jplSettingsLogo.add(lblAssocName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 26));
 
-        jplAssociationMember.setBackground(new java.awt.Color(246, 246, 246));
+        jplGeneralSettings.add(jplSettingsLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 700, 160));
 
-        javax.swing.GroupLayout jplAssociationMemberLayout = new javax.swing.GroupLayout(jplAssociationMember);
-        jplAssociationMember.setLayout(jplAssociationMemberLayout);
-        jplAssociationMemberLayout.setHorizontalGroup(
-            jplAssociationMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
-        );
-        jplAssociationMemberLayout.setVerticalGroup(
-            jplAssociationMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 341, Short.MAX_VALUE)
-        );
+        jplSettingsColor.setBackground(new java.awt.Color(246, 246, 246));
+        jplSettingsColor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtabbedAssocSettings.addTab("Sócios", jplAssociationMember);
+        jccGeneral.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jplSettingsColor.add(jccGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 5, 450, 240));
 
-        jplMainSettings.add(jtabbedAssocSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 440, 370));
+        lblGeneralColor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblGeneralColor.setForeground(new java.awt.Color(0, 98, 206));
+        lblGeneralColor.setText("Côr dos menus:");
+        jplSettingsColor.add(lblGeneralColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
-        getContentPane().add(jplMainSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 410));
+        jplGeneralSettings.add(jplSettingsColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 700, 250));
+
+        jtabbedAssocSettings.addTab("Geral", jplGeneralSettings);
+
+        jplMainSettings.add(jtabbedAssocSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 740, 500));
+
+        getContentPane().add(jplMainSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -189,109 +197,41 @@ public class AssociationSettings extends javax.swing.JFrame {
         setState(AssociationSettings.ICONIFIED);
     }//GEN-LAST:event_lblMinimizeMousePressed
 
-    private void btnAssocLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssocLogoActionPerformed
-        try {
-            JFileChooser filechooser = new JFileChooser();
-            filechooser.setDialogTitle("Escolha a imagem");
-            FileFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "bmp", "png", "tif");
-            filechooser.setFileFilter(filter);
-            filechooser.setAcceptAllFileFilterUsed(false);
-            filechooser.showOpenDialog(this);
-            ficheiro = filechooser.getSelectedFile();
-            logo = ImageIO.read(ficheiro);
-            Image fotodim = logo.getScaledInstance(lblAssocLogo.getWidth(), lblAssocLogo.getHeight(), Image.SCALE_SMOOTH);
-            ImageIcon icone = new ImageIcon(fotodim);
-            lblAssocLogo.setIcon(icone);
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
-    }//GEN-LAST:event_btnAssocLogoActionPerformed
+    private void jplMainSettingsMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jplMainSettingsMouseDragged
+        int thisX = this.getLocation().x;
+        int thisY = this.getLocation().y;
 
-    private void btnAssocSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssocSaveActionPerformed
+        // Determine how much the mouse moved since the initial click
+        int xMoved = (thisX + evt.getX()) - (thisX + initialClick.x);
+        int yMoved = (thisY + evt.getY()) - (thisY + initialClick.y);
 
-        try {
-            byte[] logotipo = convertImagetoByte(logo);
-            boolean associacaoeditada = associationController.editarAssociacao(txtAssocName.getText(), logotipo);
-            if (associacaoeditada) {
-                JOptionPane.showMessageDialog(null, "Dados da associação alterados com sucesso", "Associação", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro ao realizar alteração.", "Associação", JOptionPane.ERROR_MESSAGE);
-                txtAssocName.setText("MyAssociation");
-            }
-        } catch (IOException ex) {
-            System.out.println(ex);
-            Logger.getLogger(AssociationSettings.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // Move window to this position
+        int X = thisX + xMoved;
+        int Y = thisY + yMoved;
+        this.setLocation(X, Y);
+    }//GEN-LAST:event_jplMainSettingsMouseDragged
 
-    }//GEN-LAST:event_btnAssocSaveActionPerformed
-    private void setDados() {
-        try {
-            txtAssocName.setText(associacao.getNome());
-            lblAssocLogo.setIcon(convertBytetoIcon(associacao.getLogotipo()));
-        } catch (NullPointerException ex) {
-            System.out.println(ex);
-        }
-    }
+    private void btnGeneralSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGeneralSaveActionPerformed
 
-    private byte[] convertImagetoByte(BufferedImage foto) throws IOException {
-        byte[] fotoinbytes;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if (foto == null) {
-            fotoinbytes = new byte[0];
-        } else if (ficheiro == null) {
-            fotoinbytes = associacao.getLogotipo();
-        } else {
-            try {
-                foto = ImageIO.read(ficheiro);
-
-                ImageIO.write(foto, "jpg", baos);
-                baos.flush();
-                baos.toByteArray();
-            } catch (IOException ex) {
-                Logger.getLogger(EditMember.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            fotoinbytes = baos.toByteArray();;
-        }
-        return fotoinbytes;
-    }
-
-    private Icon convertBytetoIcon(byte[] fotografia) {
-        ImageIcon icone = null;
-        try {
-            byte[] byteArray = fotografia;
-            BufferedImage theImage = ImageIO.read(new ByteArrayInputStream(byteArray));
-            Image fotodim = theImage.getScaledInstance(lblAssocLogo.getWidth(), lblAssocLogo.getHeight(), Image.SCALE_SMOOTH);
-            icone = new ImageIcon(fotodim);
-
-        } catch (IOException ex) {
-            System.out.println(ex);
-        } catch (NullPointerException exep) {
-            System.out.println(exep);
-        }
-        return icone;
-    }
-
-    private BufferedImage createImageFromBytes(byte[] fotografia) {
-        ByteArrayInputStream bais = new ByteArrayInputStream(fotografia);
-        try {
-            return ImageIO.read(bais);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private void btnApplicationLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplicationLogoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnApplicationLogoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAssocLogo;
-    private javax.swing.JButton btnAssocSave;
-    private javax.swing.JPanel jplAssociationGeneral;
-    private javax.swing.JPanel jplAssociationMember;
+    private javax.swing.JButton btnApplicationLogo;
+    private javax.swing.JButton btnGeneralSave;
+    private javax.swing.JColorChooser jccGeneral;
+    private javax.swing.JPanel jplGeneralSettings;
     private javax.swing.JPanel jplMainSettings;
+    private javax.swing.JPanel jplSettingsColor;
+    private javax.swing.JPanel jplSettingsLogo;
     private javax.swing.JTabbedPane jtabbedAssocSettings;
-    private javax.swing.JLabel lblAssocLogo;
-    private javax.swing.JLabel lblAssocName;
+    private javax.swing.JLabel lblApplicationLogo;
+    private javax.swing.JLabel lblAssocName2;
     private javax.swing.JLabel lblClose;
+    private javax.swing.JLabel lblGeneralColor;
     private javax.swing.JLabel lblMinimize;
-    private javax.swing.JTextField txtAssocName;
     // End of variables declaration//GEN-END:variables
 }

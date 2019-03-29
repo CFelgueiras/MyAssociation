@@ -18,8 +18,13 @@ public class AssociationController {
     AssociationImpl associationDAO = new AssociationImpl();
     Association association = new Association();
 
-    public boolean editarAssociacao(String nome, byte[] logotipo) {
-        return associationDAO.editarAssociacao(nome, logotipo);
+    public boolean editarAssociacao(String nome, String nif, String presidente, 
+            String secretario, String tesoureiro, String vogal1, String vogal2, 
+            String vogal3, String vogal4, String vogal5, String morada, 
+            String telefone, String telemovel, String email, byte[] logotipo) {
+        return associationDAO.editarAssociacao(nome, nif, presidente, secretario
+                , tesoureiro, vogal1, vogal2, vogal3, vogal4, vogal5, morada, 
+                telefone, telemovel, email, logotipo);
     }
 
     public Association obterAssociacao() {
@@ -29,8 +34,8 @@ public class AssociationController {
     public String[] listaNomesAssociacoes() {
         return associationDAO.listaNomesAssociacoes();
     }
-    
-    public Image applicationIcon(){
+
+    public Image applicationIcon() {
         return association.applicationIcon();
     }
 }
