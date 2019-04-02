@@ -213,6 +213,7 @@ public class SubscribeSport extends javax.swing.JFrame {
     private void btnModCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModCriarActionPerformed
 
 
+//boolean socioinscrito = modalidadeController.inscreverModalidade(tabelasocios.getValueAt(WIDTH, WIDTH), (String)jcbModalidades.getSelectedItem(), username);
 
 //        if (txtModNome.getText().isEmpty() || txtModResponsavel.getText().isEmpty()) {
 //            JOptionPane.showMessageDialog(null, "Os dados da modalidade não podem ser vazios. \nInsira um nome e um responsável.", "Criar Modalidade", JOptionPane.ERROR_MESSAGE);

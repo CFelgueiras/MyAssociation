@@ -27,4 +27,6 @@ public interface ISportDAO {
     public boolean inativarModalidade(String nome);
 
     public int getModalidadeIdByNome(String nome);
+    
+    public boolean inscreverModalidade(int numerosocio, String modalidade, String username);
 }
