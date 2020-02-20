@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- * Database connector class using Singleton Design Pattern
+ * Database connector class
  * @author Claudio Felgueiras
  */
 public class ConnectDB {
