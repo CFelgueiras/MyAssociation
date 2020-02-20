@@ -14,8 +14,8 @@ public class ConnectDB {
     private static final String DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String LOCALCONNECTIONURL = "jdbc:sqlserver://localhost:1433;" +  
    "databaseName=MYASSOCIATION;user=sa;password=Myassociation2018;";
-    private static final String REMOTECONNECTIONURL = "jdbc:sqlserver://mssql.lastsoftware.pt\\MSSQLSERVER2017;" +  
-   "databaseName=MYASSOCIATION;user=lastsoftware;password=Association2018;";  
+    private static final String REMOTECONNECTIONURL = "jdbc:sqlserver://;" +  
+   "databaseName=;user=;password=;";  
     private static Connection conexao;
 
     /**
